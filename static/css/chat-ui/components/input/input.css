@@ -1,0 +1,21 @@
+.input {
+    margin: 0;
+    padding: 4px 0;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+
+    border: none;
+    border-bottom: 1px solid var(--chat-ui-color-primary);
+    outline: none;
+}
+
+.input:focus {
+    border-bottom-color: var(--chat-ui-color-primary-tint);
+}
+
+.input_error {
+    border-bottom-color: var(--chat-ui-color-danger);
+}

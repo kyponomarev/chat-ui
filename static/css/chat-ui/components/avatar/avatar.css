@@ -1,0 +1,22 @@
+.avatar {
+    --size: 47px;
+    width: var(--size);
+    height: var(--size);
+    min-width: var(--size);
+    min-height: var(--size);
+    max-width: var(--size);
+    max-height: var(--size);
+
+    border-radius: 50%;
+    background-color: var(--chat-ui-color-medium-tint);
+}
+
+.avatar_small {
+    --size: 34px;
+}
+
+.avatar_large {
+    --size: 131px;
+}
+
+

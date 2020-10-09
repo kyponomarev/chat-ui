@@ -1,0 +1,17 @@
+.form-group__input {
+    display: block;
+    width: 100%;
+
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.form-group__validation-feedback {
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    line-height: 8px;
+
+    color: var(--chat-ui-color-danger);
+}
