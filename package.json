@@ -1,0 +1,23 @@
+{
+  "name": "chat-ui",
+  "version": "1.0.0",
+  "description": "Набор стилей для создания ui чата. Сделано в рамках проектной работы на Яндекс.Практикуме.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyponomarev/mf.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kyponomarev/mf.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/kyponomarev/mf.messenger.praktikum.yandex#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

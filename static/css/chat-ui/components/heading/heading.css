@@ -1,0 +1,16 @@
+.heading {
+    --size: 20px;
+    margin: 0;
+
+    font-weight: 500;
+    font-size: var(--size);
+    line-height: var(--size);
+}
+
+.heading_centered {
+    text-align: center;
+}
+
+.heading_large {
+    --size: 48px;
+}

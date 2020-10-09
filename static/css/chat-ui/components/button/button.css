@@ -1,0 +1,49 @@
+.button {
+    padding: 12px 40px;
+    box-sizing: border-box;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+
+    color: var(--chat-ui-color-primary);
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+.button_full-width {
+    width: 100%;
+}
+
+.button_rounded {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.button_icon-only {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.button_primary {
+    background-color: var(--chat-ui-color-primary);
+    color: var(--chat-ui-color-primary-contrast);
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button:hover {
+    background-color: var(--chat-ui-color-primary-tint);
+}
+
+

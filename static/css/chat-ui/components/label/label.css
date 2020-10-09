@@ -1,0 +1,9 @@
+.label {
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 9px;
+}
+
+.label_secondary {
+    color: var(--chat-ui-color-medium);
+}

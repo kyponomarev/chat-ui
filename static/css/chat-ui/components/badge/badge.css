@@ -1,0 +1,22 @@
+.badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    min-width: var(--size);
+    min-height: var(--size);
+    max-width: var(--size);
+    max-height: var(--size);
+
+    border-radius: 50%;
+
+    font-weight: 500;
+    font-size: 11px;
+    line-height: var(--size);
+
+    background-color: var(--chat-ui-color-primary);
+    color: var(--chat-ui-color-primary-contrast);
+}

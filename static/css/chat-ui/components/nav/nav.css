@@ -1,0 +1,38 @@
+.nav {
+    display: flex;
+}
+
+.nav_content-position_right {
+    justify-content: flex-end;
+}
+
+.nav__link {
+    margin-right: 15px;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+
+    color: var(--chat-ui-color-medium);
+    text-decoration: none;
+}
+
+.nav__link:hover {
+    text-decoration: underline;
+}
+
+.nav__link:after {
+    content: " >";
+}
+
+.nav__link_back:after {
+    content: none;
+}
+
+.nav__link_back:before {
+    content: "< ";
+}
+
+.nav__link:last-child {
+    margin-right: 0;
+}
