@@ -14,8 +14,8 @@
 </head>
 <body class="container container_full-height container_full-width">
 <main class="main main_centered container__main container__main_single">
-    <form action="" method="" class="form form_sign-in">
-        <h3 class="heading form__heading heading_centered">Регистрация</h3>
+    <form action="" method="POST" class="form form_sign-in">
+        <h1 class="heading form__heading heading_centered">Регистрация</h1>
         <div class="form__body">
 
             <div class="form__form-group form-group">
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label class="label label_secondary form-group_label">
                     Пароль
-                    <input class="input form-group__input input_error" name="password" type="password"/>
+                    <input class="input form-group__input input_error" type="password" name="password"/>
                 </label>
                 <span class="form-group__validation-feedback">
                     Пароль слишком короткий
@@ -67,7 +67,7 @@
         <div class="form__footer">
             <button class="button button_full-width button_primary form__button" type="submit">Зарегистрироваться
             </button>
-            <a class="link">Войти</a>
+            <a class="link" href="./sign-in.html">Войти</a>
         </div>
     </form>
 </main>
