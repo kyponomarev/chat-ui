@@ -5,6 +5,7 @@
     font-size: var(--size);
     font-weight: var(--font-weight);
     line-height: var(--line-height);
+    margin: 0;
 }
 
 .text_author {

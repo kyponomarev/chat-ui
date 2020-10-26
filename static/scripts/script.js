@@ -1,21 +1,25 @@
 (function () {
-    const form = document.querySelector('form');
-    if (!form) {
+    const forms = document.querySelectorAll('form');
+
+    if (forms.length === 0) {
         return;
     }
 
-    addEventListener('submit', (e) => {
-        e.preventDefault();
+    forms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        const form = e.target;
-        const formData = new FormData(form);
+            const form = e.target;
+            const formData = new FormData(form);
 
-        const data = {};
-        for (let [k, v] of formData.entries()) {
-            data[k] = v;
-        }
-        console.log(data);
+            const data = {};
+            for (let [k, v] of formData.entries()) {
+                data[k] = v;
+            }
+            console.log(data);
+        });
     });
+
 })();
 
 
