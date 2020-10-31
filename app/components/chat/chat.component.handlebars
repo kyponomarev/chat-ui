@@ -1,0 +1,55 @@
+<div class="chat">
+    <header class="header chat__header">
+        <div class="chat__user">
+            <img src="{{authorAvatar}}" alt="Пользователь" class="avatar avatar_small chat__avatar"/>
+            <div class="chat-list__content">
+                <h1 class="text text_bold text_author chat__author-name">
+                    {{authorName}}
+                </h1>
+                <p class="text text_color_medium chat__status">
+                    {{authorLastVisit}}
+                </p>
+            </div>
+        </div>
+        <button class="button button_rounded button_icon-only msg-form__submit">
+            <img src="./images/icons/more.svg"
+                 alt="Отправить"/>
+        </button>
+    </header>
+
+    <div class="chat__window">
+        {{#each sessions}}
+            <div class="chat__row">
+                <span class="text text_color_medium chat__date">
+                    {{this.time}}
+                </span>
+            </div>
+            {{#each this.messages}}
+                <div class="chat__row chat__row_{{this.type}}">
+                    <div class="chat__msg chat__msg_{{this.type}}">
+                        <p class="chat__text text text_msg">
+                            {{this.text}}
+                        </p>
+                        <div class="chat__meta">
+                            <span class="chat__time text text_time text_color_medium text_right">{{this.time}}</span>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{/each}}
+
+    </div>
+    <form class="chat__form msg-form" action="" method="">
+        <label class="file-picker msg-form__file-picker">
+            <img src="./images/icons/file.svg"
+                 alt="Загрузка файла"/>
+            <input class="file-picker__input" type="file" name="file"/>
+        </label>
+        <input class="msg-form__input" type="text" placeholder="Сообщение" name="message"/>
+        <button type="submit" class="button button_primary button_rounded button_icon-only msg-form__submit">
+            <img src="./images/icons/arrow_right.svg"
+                 alt="Отправить"/>
+        </button>
+    </form>
+
+</div>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>ChatUI | 404</title>
+
+    <!--    <link rel="stylesheet" href="css/chat-ui/ui-chat.css" type="text/css">-->
+    <link rel="stylesheet" href="./styles.css" type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="container container_full-height container_full-width">
+<div class="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script src="./templates.js"></script>
+<script type="module">
+    import {render} from "./utils/render-dom.js";
+    import NotFoundPage from "./pages/not-found/not-found.page.js";
+
+    const page = new NotFoundPage();
+    render(".app", page);
+</script>
+</body>
+</html>

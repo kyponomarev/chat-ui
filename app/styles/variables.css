@@ -1,0 +1,22 @@
+:root {
+    /*Colors*/
+    --chat-ui-color-primary: #3369f3;
+    --chat-ui-color-primary-tint: #244ba8;
+    --chat-ui-color-primary-contrast: #ffffff;
+
+    --chat-ui-color-secondary: #00e0ff;
+    --chat-ui-color-secondary-shade: #E4EDFD;
+
+    --chat-ui-color-danger: #ff2f2f;
+
+    --chat-ui-color-medium: #999999;
+    --chat-ui-color-medium-tint: #efefef;
+    --chat-ui-color-medium-shade: #eaeaea;
+
+    --chat-ui-color-light: #fbfbfb;
+
+    --chat-ui-color-dark: #000000;
+
+    /*Fonts*/
+    --chat-ui-font-family: 'Inter', sans-serif;
+}

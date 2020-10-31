@@ -1,0 +1,16 @@
+<form action="{{attributes.action}}" method="{{attributes.method}}" class="form {{class}}" onSubmit=onSubmitHandler>
+    {{#if title}}
+        <h1 class="heading form__heading heading_centered">{{title}}</h1>
+    {{/if}}
+    <div class="form__body">
+        {{#each formGroups}}
+            {{{this}}}
+        {{/each}}
+    </div>
+    <div class="form__footer">
+        {{{button}}}
+        {{#if backLink}}
+            <a class="link" href="{{backLink.url}}">{{backLink.text}}</a>
+        {{/if}}
+    </div>
+</form>

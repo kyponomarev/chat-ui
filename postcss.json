@@ -1,0 +1,10 @@
+{
+  "use": [
+    "autoprefixer",
+    "postcss-import"
+  ],
+  "input": "app/styles/styles.css",
+  "output": "dist/styles.css",
+  "local-plugins": true,
+  "watch": true
+}

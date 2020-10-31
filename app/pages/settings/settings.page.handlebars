@@ -1,0 +1,21 @@
+<div class="page {{class}}">
+    <aside class="sidebar container__sidebar">
+        <header class="sidebar__header header">
+            <nav class="nav sidebar__nav">
+                <a href="{{backLink.url}}" class="nav__link nav__link_back">{{backLink.text}}</a>
+            </nav>
+        </header>
+    </aside>
+    <main class="main container__main">
+        <div class="container container_indented">
+            <img src="/images/placeholders/user.png" alt="Пользователь" class="avatar avatar_large"/>
+            <label class="file-picker">
+                <img src="./images/icons/pen.svg"
+                     alt="Загрузка файла"/>
+                <input class="file-picker__input" type="file" name="avatar"/>
+            </label>
+        </div>
+        {{{form}}}
+    </main>
+
+</div>
