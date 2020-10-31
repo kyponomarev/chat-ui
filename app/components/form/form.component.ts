@@ -61,15 +61,10 @@ export default class FormComponent extends Block {
         return template(this._props);
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.attachListeners();
-        });
-    }
-
     get isInvalid(): boolean {
         return this._formGroups
             .map((fg: FormGroupComponent) => fg.isInvalid)
             .indexOf(true) !== -1;
     }
+
 }

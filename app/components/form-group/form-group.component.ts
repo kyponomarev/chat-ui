@@ -11,6 +11,9 @@ export interface FormField {
 }
 
 export default class FormGroupComponent extends Block {
+    private readonly labelSelector = '.form-group__validation-feedback';
+    private readonly inputSelector = '.input';
+
     private _invalid: boolean;
     private _pattern: RegExp;
     private _value: string;
@@ -29,12 +32,6 @@ export default class FormGroupComponent extends Block {
 
         const {pattern: _pattern, defaultValue: _value} = field;
         Object.assign(this, {_invalid: _pattern.test(_value), _pattern, _value});
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.attachListeners();
-        });
     }
 
     render(): string {
@@ -75,27 +72,21 @@ export default class FormGroupComponent extends Block {
 
 
     private _setItemInvalid() {
-        const label = this.getContent().querySelector('.form-group__validation-feedback');
-        if (label) {
-            label.classList.remove('hidden');
-        }
-
-        const input = this.getContent().querySelector('.input');
-        if (input) {
-            input.classList.add('input_error');
-        }
+        this._getInternalElement(this.labelSelector).classList.remove('hidden');
+        this._getInternalElement(this.inputSelector).classList.add('input_error');
     }
 
     private _setItemValid() {
-        const label = this.getContent().querySelector('.form-group__validation-feedback');
-        if (label) {
-            label.classList.add('hidden');
-        }
-        const input = this.getContent().querySelector('.input');
-        if (input) {
-            input.classList.remove('input_error');
-        }
+        this._getInternalElement(this.labelSelector).classList.add('hidden');
+        this._getInternalElement(this.inputSelector).classList.remove('input_error');
+    }
 
+    private _getInternalElement(query: string): Element {
+        const elem = this.getContent().querySelector(query);
+        if (!elem) {
+            throw new Error('Element not found');
+        }
+        return elem;
     }
 
 

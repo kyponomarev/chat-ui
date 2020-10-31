@@ -5,6 +5,7 @@ var BLOCK_EVENTS;
     BLOCK_EVENTS["FLOW_CDM"] = "flow:component-did-mount";
     BLOCK_EVENTS["FLOW_CDU"] = "flow:component-did-update";
     BLOCK_EVENTS["FLOW_RENDER"] = "flow:render";
+    BLOCK_EVENTS["FLOW_ATTACH_LISTENERS"] = "flow:attach";
 })(BLOCK_EVENTS || (BLOCK_EVENTS = {}));
 export class Block {
     constructor(tagName = 'div', props = { class: '', attributes: {}, handlers: {} }) {
@@ -31,6 +32,7 @@ export class Block {
             const elem = document.querySelector(`[_key=${i.id}]`);
             if (elem) {
                 i.setElement(elem);
+                i.attachListeners();
             }
         }
     }
@@ -84,21 +86,6 @@ export class Block {
     _createDocumentElement(tagName) {
         return document.createElement(tagName);
     }
-    attachListeners() {
-        if (!this._props.handlers) {
-            return;
-        }
-        this._gatherListeners();
-        const iterator = this._subscriptions.entries();
-        let item = iterator.next();
-        while (!item.done) {
-            const [elem, events] = item.value;
-            Object.keys(events).forEach(eventName => {
-                elem.addEventListener(eventName, events[eventName]);
-            });
-            item = iterator.next();
-        }
-    }
     _gatherListeners() {
         const block = this._element;
         const stack = [block];
@@ -128,6 +115,21 @@ export class Block {
             stack.push(...children);
         }
         this._subscriptions = subscriptions;
+    }
+    attachListeners() {
+        if (!this._props.handlers) {
+            return;
+        }
+        this._gatherListeners();
+        const iterator = this._subscriptions.entries();
+        let item = iterator.next();
+        while (!item.done) {
+            const [elem, events] = item.value;
+            Object.keys(events).forEach(eventName => {
+                elem.addEventListener(eventName, events[eventName]);
+            });
+            item = iterator.next();
+        }
     }
     renderToString() {
         const wrapper = document.createElement('div');

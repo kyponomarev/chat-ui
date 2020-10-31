@@ -54,6 +54,7 @@ export abstract class Block {
             const elem = document.querySelector(`[_key=${i.id}]`);
             if (elem) {
                 i.setElement(elem);
+                i.attachListeners();
             }
         }
     };
@@ -133,23 +134,6 @@ export abstract class Block {
         return document.createElement(tagName);
     }
 
-    attachListeners() {
-        if (!this._props.handlers) {
-            return;
-        }
-        this._gatherListeners();
-
-        const iterator = this._subscriptions.entries();
-        let item = iterator.next();
-        while (!item.done) {
-            const [elem, events] = item.value;
-            Object.keys(events).forEach(eventName => {
-                elem.addEventListener(eventName, events[eventName]);
-            });
-            item = iterator.next();
-        }
-    }
-
     private _gatherListeners() {
         const block = this._element;
         const stack: Array<Element> = [block];
@@ -185,6 +169,23 @@ export abstract class Block {
         }
 
         this._subscriptions = subscriptions;
+    }
+
+    attachListeners() {
+        if (!this._props.handlers) {
+            return;
+        }
+        this._gatherListeners();
+
+        const iterator = this._subscriptions.entries();
+        let item = iterator.next();
+        while (!item.done) {
+            const [elem, events] = item.value;
+            Object.keys(events).forEach(eventName => {
+                elem.addEventListener(eventName, events[eventName]);
+            });
+            item = iterator.next();
+        }
     }
 
     renderToString() {

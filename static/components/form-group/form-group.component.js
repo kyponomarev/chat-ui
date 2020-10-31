@@ -11,13 +11,12 @@ export default class FormGroupComponent extends Block {
                 keyupHandler: (evt) => this._onKeyup(evt)
             }
         });
+        this.labelSelector = '.form-group__validation-feedback';
+        this.inputSelector = '.input';
         const { pattern: _pattern, defaultValue: _value } = field;
         Object.assign(this, { _invalid: _pattern.test(_value), _pattern, _value });
     }
     componentDidMount() {
-        setTimeout(() => {
-            this.attachListeners();
-        });
     }
     render() {
         const template = Handlebars.templates['components/form-group/form-group.component'];
@@ -50,24 +49,19 @@ export default class FormGroupComponent extends Block {
         }
     }
     _setItemInvalid() {
-        const label = this.getContent().querySelector('.form-group__validation-feedback');
-        if (label) {
-            label.classList.remove('hidden');
-        }
-        const input = this.getContent().querySelector('.input');
-        if (input) {
-            input.classList.add('input_error');
-        }
+        this._getInternalElement(this.labelSelector).classList.remove('hidden');
+        this._getInternalElement(this.inputSelector).classList.add('input_error');
     }
     _setItemValid() {
-        const label = this.getContent().querySelector('.form-group__validation-feedback');
-        if (label) {
-            label.classList.add('hidden');
+        this._getInternalElement(this.labelSelector).classList.add('hidden');
+        this._getInternalElement(this.inputSelector).classList.remove('input_error');
+    }
+    _getInternalElement(query) {
+        const elem = this.getContent().querySelector(query);
+        if (!elem) {
+            throw new Error('Element not found');
         }
-        const input = this.getContent().querySelector('.input');
-        if (input) {
-            input.classList.remove('input_error');
-        }
+        return elem;
     }
 }
 //# sourceMappingURL=form-group.component.js.map

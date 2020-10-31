@@ -42,11 +42,6 @@ export default class FormComponent extends Block {
         const template = Handlebars.templates['components/form/form.component'];
         return template(this._props);
     }
-    componentDidMount() {
-        setTimeout(() => {
-            this.attachListeners();
-        });
-    }
     get isInvalid() {
         return this._formGroups
             .map((fg) => fg.isInvalid)
