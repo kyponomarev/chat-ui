@@ -1,0 +1,16 @@
+<div class="page {{class}}">
+    <aside class="sidebar container__sidebar">
+        <header class="sidebar__header header">
+            <nav class="nav nav_content-position_right sidebar__nav">
+                <a href="{{profileLink.url}}" class="nav__link">{{profileLink.text}}</a>
+            </nav>
+            <input class="search-bar sidebar__search-bar" placeholder="{{searchBarPlaceholder}}"/>
+        </header>
+        <div class="sidebar__content">
+            {{{chatList}}}
+        </div>
+    </aside>
+    <main class="main main_centered container__main">
+        <h1 class="text text_color_medium">{{title}}</h1>
+    </main>
+</div>

@@ -1,0 +1,16 @@
+<div class="form-group {{class}}">
+    <label class="label label_secondary form-group_label">
+        {{labelText}}
+        <input class="input form-group__input"
+               type="{{type}}"
+               placeholder="{{placeholder}}"
+               name="{{name}}"
+               onBlur=blurHandler
+               onFocus=focusHandler
+               onKeyup=keyupHandler
+        />
+    </label>
+    <span class="form-group__validation-feedback hidden">
+        {{this.invalidMessage}}
+    </span>
+</div>

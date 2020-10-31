@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+}
+
+.container_indented {
+    padding: 20px;
+}
+
+.container_full-width {
+    min-width: 100%;
+}
+
+.container_full-height {
+    min-height: 100%;
+}
+
+.container__sidebar {
+    flex: 1 310px;
+}
+
+.container__main {
+    flex: 3 970px;
+}
+
+.container__main_single {
+    flex: 1;
+}

@@ -5,74 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>ChatUI | Регистрация</title>
 
-    <link rel="stylesheet" href="css/chat-ui/ui-chat.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <!--    <link rel="stylesheet" href="css/chat-ui/ui-chat.css" type="text/css">-->
+    <link rel="stylesheet" href="./styles.css" type="text/css">
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 <body class="container container_full-height container_full-width">
-<main class="main main_centered container__main container__main_single">
-    <form action="" method="POST" class="form form_sign-in">
-        <h1 class="heading form__heading heading_centered">Регистрация</h1>
-        <div class="form__body">
+<div class="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script src="./templates.js"></script>
+<script type="module">
+    import SignUpPage from "./pages/sign-up/sign-up.page.js";
+    import {render} from "./utils/render-dom.js";
 
-            <div class="form__form-group form-group">
-                <label class="label label_secondary form-group_label">
-                    Имя
-                    <input class="input form-group__input" type="text" name="first_name"/>
-                </label>
-            </div>
-
-            <div class="form__form-group form-group">
-                <label class="label label_secondary form-group_label">
-                    Фамилия
-                    <input class="input form-group__input" type="text" name="second_name"/>
-                </label>
-            </div>
-
-            <div class="form__form-group form-group">
-                <label class="label label_secondary form-group_label">
-                    Логин
-                    <input class="input form-group__input" type="text" name="login"/>
-                </label>
-            </div>
-
-            <div class="form__form-group form-group">
-                <label class="label label_secondary form-group_label">
-                    Почта
-                    <input class="input form-group__input" type="email" name="email"/>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label class="label label_secondary form-group_label">
-                    Пароль
-                    <input class="input form-group__input input_error" type="password" name="password"/>
-                </label>
-                <span class="form-group__validation-feedback">
-                    Пароль слишком короткий
-                </span>
-            </div>
-
-            <div class="form__form-group form-group">
-                <label class="label label_secondary form-group_label">
-                    Телефон
-                    <input class="input form-group__input" type="tel" name="phone"/>
-                </label>
-            </div>
-
-        </div>
-        <div class="form__footer">
-            <button class="button button_full-width button_primary form__button" type="submit">Зарегистрироваться
-            </button>
-            <a class="link" href="./sign-in.html">Войти</a>
-        </div>
-    </form>
-</main>
-
-<script type="text/javascript" src="scripts/script.js">
+    const page = new SignUpPage();
+    render(".app", page);
+    SignUpPage.hydrate();
 </script>
 </body>
 </html>

@@ -1,9 +1,0 @@
-.main_centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.main_flow-column {
-    flex-flow: column;
-}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "static",
+    "target": "es2020",
+    "declaration": false,
+    "module": "es6",
+    "typeRoots": [
+      "./vendor"
+    ],
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true
+  }
+}
