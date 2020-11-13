@@ -31,7 +31,7 @@ export default class SignInPage extends Block {
             class: '',
             attributes: {method: 'POST', action: '/chats.html'},
             handlers: {},
-            backLink: {url: '/sign-up.html', text: 'Нет Аккаунта?'},
+            backLink: {url: '/sign-up', text: 'Нет Аккаунта?'},
             title: 'Вход',
             submitButtonText: 'Авторизоваться',
             fields

@@ -16,8 +16,6 @@ export default class FormGroupComponent extends Block {
         const { pattern: _pattern, defaultValue: _value } = field;
         Object.assign(this, { _invalid: _pattern.test(_value), _pattern, _value });
     }
-    componentDidMount() {
-    }
     render() {
         const template = Handlebars.templates['components/form-group/form-group.component'];
         return template(this._props);

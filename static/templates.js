@@ -71,7 +71,7 @@ templates['components/chat-list/chat-list.component'] = template({"1":function(c
         return undefined
     };
 
-  return "        <li class=\"chat-list__item\">\n            <a href=\"/chat.html\" class=\"chat-list__link\">\n                <img src=\""
+  return "        <li class=\"chat-list__item\">\n            <a href=\"/chat\" routerlink class=\"chat-list__link\">\n                <img src=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"authorAvatar") || (depth0 != null ? lookupProperty(depth0,"authorAvatar") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"authorAvatar","hash":{},"data":data,"loc":{"start":{"line":5,"column":26},"end":{"line":5,"column":42}}}) : helper)))
     + "\" alt=\"Пользователь\" class=\"avatar chat-list__avatar\"/>\n                <div class=\"chat-list__content\">\n                    <h2 class=\"text text_bold text_author\">\n                        "
     + alias4(alias5((depth0 != null ? lookupProperty(depth0,"authorName") : depth0), depth0))
@@ -119,7 +119,7 @@ templates['components/form/form.component'] = template({"1":function(container,d
         return undefined
     };
 
-  return "            <a class=\"link\" href=\""
+  return "            <a routerlink class=\"link\" href=\""
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
     + "\">"
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
@@ -180,7 +180,7 @@ templates['pages/chat/chat.page'] = template({"compiler":[8,">= 4.3.0"],"main":f
 
   return "<div class=\"page "
     + alias4(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":1,"column":17},"end":{"line":1,"column":26}}}) : helper)))
-    + "\">\n    <aside class=\"sidebar container__sidebar\">\n        <header class=\"sidebar__header header\">\n            <nav class=\"nav nav_content-position_right sidebar__nav\">\n                <a href=\""
+    + "\">\n    <aside class=\"sidebar container__sidebar\">\n        <header class=\"sidebar__header header\">\n            <nav class=\"nav nav_content-position_right sidebar__nav\">\n                <a routerlink href=\""
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"profileLink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
     + "\" class=\"nav__link\">"
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"profileLink") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
@@ -202,7 +202,7 @@ templates['pages/chats/chats.page'] = template({"compiler":[8,">= 4.3.0"],"main"
 
   return "<div class=\"page "
     + alias4(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":1,"column":17},"end":{"line":1,"column":26}}}) : helper)))
-    + "\">\n    <aside class=\"sidebar container__sidebar\">\n        <header class=\"sidebar__header header\">\n            <nav class=\"nav nav_content-position_right sidebar__nav\">\n                <a href=\""
+    + "\">\n    <aside class=\"sidebar container__sidebar\">\n        <header class=\"sidebar__header header\">\n            <nav class=\"nav nav_content-position_right sidebar__nav\">\n                <a routerLink href=\""
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"profileLink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
     + "\" class=\"nav__link\">"
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"profileLink") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
@@ -228,8 +228,8 @@ templates['pages/internal-error/internal-error.page'] = template({"compiler":[8,
     + alias4(((helper = (helper = lookupProperty(helpers,"title") || (depth0 != null ? lookupProperty(depth0,"title") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data,"loc":{"start":{"line":2,"column":38},"end":{"line":2,"column":47}}}) : helper)))
     + "</h1>\n    <p class=\"text\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"description") || (depth0 != null ? lookupProperty(depth0,"description") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"description","hash":{},"data":data,"loc":{"start":{"line":3,"column":20},"end":{"line":3,"column":35}}}) : helper)))
-    + "</p>\n    <a class=\"link\" href=\""
-    + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backlink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
+    + "</p>\n    <a routerlink class=\"link\" href=\""
+    + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
     + "\">"
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
     + "</a>\n</div>\n\n\n";
@@ -248,8 +248,8 @@ templates['pages/not-found/not-found.page'] = template({"compiler":[8,">= 4.3.0"
     + alias4(((helper = (helper = lookupProperty(helpers,"title") || (depth0 != null ? lookupProperty(depth0,"title") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data,"loc":{"start":{"line":2,"column":38},"end":{"line":2,"column":47}}}) : helper)))
     + "</h1>\n    <p class=\"text\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"description") || (depth0 != null ? lookupProperty(depth0,"description") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"description","hash":{},"data":data,"loc":{"start":{"line":3,"column":20},"end":{"line":3,"column":35}}}) : helper)))
-    + "</p>\n    <a class=\"link\" href=\""
-    + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backlink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
+    + "</p>\n    <a routerlink class=\"link\" href=\""
+    + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
     + "\">"
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
     + "</a>\n</div>\n\n\n";
@@ -264,7 +264,7 @@ templates['pages/settings/settings.page'] = template({"compiler":[8,">= 4.3.0"],
 
   return "<div class=\"page "
     + alias4(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":1,"column":17},"end":{"line":1,"column":26}}}) : helper)))
-    + "\">\n    <aside class=\"sidebar container__sidebar\">\n        <header class=\"sidebar__header header\">\n            <nav class=\"nav sidebar__nav\">\n                <a href=\""
+    + "\">\n    <aside class=\"sidebar container__sidebar\">\n        <header class=\"sidebar__header header\">\n            <nav class=\"nav sidebar__nav\">\n                <a routerlink href=\""
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"url") : stack1), depth0))
     + "\" class=\"nav__link nav__link_back\">"
     + alias4(alias5(((stack1 = (depth0 != null ? lookupProperty(depth0,"backLink") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))

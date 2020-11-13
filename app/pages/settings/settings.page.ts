@@ -11,7 +11,7 @@ export default class SettingsPage extends Block {
         class: 'container container_full-height container_full-width',
         attributes: {},
         handlers: {},
-        backLink: {text: 'Назад', url: '/chats.html'}
+        backLink: {text: 'Назад', url: '/'}
     }) {
 
         const fields: FormField[] = [

@@ -224,4 +224,12 @@ export abstract class Block {
 
         Object.assign(this._props, nextProps);
     };
+
+    show() {
+        (<HTMLElement>this.getContent()).style.display = "block";
+    }
+
+    hide() {
+        (<HTMLElement>this.getContent()).style.display = "none";
+    }
 }

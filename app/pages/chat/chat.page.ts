@@ -17,7 +17,7 @@ export default class ChatPage extends Block {
         handlers: {},
         profileLink: {
             text: 'Профиль',
-            url: '/settings.html',
+            url: '/settings',
         },
         searchBarPlaceholder: 'Найти'
     }) {

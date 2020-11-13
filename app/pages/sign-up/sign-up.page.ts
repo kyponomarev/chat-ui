@@ -72,7 +72,7 @@ export default class SignUpPage extends Block {
             class: '',
             attributes: {method: 'POST', action: '/sign-in.html'},
             handlers: {},
-            backLink: {url: '/sign-in.html', text: 'Уже есть аккаунт'},
+            backLink: {url: '/sign-in', text: 'Уже есть аккаунт'},
             title: 'Регистрация',
             submitButtonText: 'Войти',
             fields

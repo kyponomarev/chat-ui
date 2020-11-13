@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>ChatUI | Вход</title>
+    <title>ChatUI | Список чатов</title>
 
     <!--    <link rel="stylesheet" href="css/chat-ui/ui-chat.css" type="text/css">-->
     <link rel="stylesheet" href="./styles.css" type="text/css">
@@ -16,18 +16,10 @@
 <div class="app"></div>
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script src="./templates.js"></script>
-<script type="module" src="./pages/sign-in/sign-in.page.js">
-</script>
 <script type="module">
-    import SignInPage from "./pages/sign-in/sign-in.page.js";
-    import {render} from "./utils/render-dom.js";
+    import App from "./app.js";
 
-    const page = new SignInPage({
-        class: 'page main main_centered container__main container__main_single',
-        handlers: {}
-    });
-    render(".app", page);
-    SignInPage.hydrate();
+    app = new App();
 </script>
 </body>
 </html>

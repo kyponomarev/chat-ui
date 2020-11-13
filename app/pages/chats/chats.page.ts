@@ -18,7 +18,7 @@ export default class ChatsPage extends Block {
         title: 'Выберите чат из списка слева',
         profileLink: {
             text: 'Профиль',
-            url: '/settings.html',
+            url: '/settings',
         },
         searchBarPlaceholder: 'Найти'
     }) {

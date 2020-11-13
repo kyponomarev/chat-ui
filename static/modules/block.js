@@ -5,7 +5,6 @@ var BLOCK_EVENTS;
     BLOCK_EVENTS["FLOW_CDM"] = "flow:component-did-mount";
     BLOCK_EVENTS["FLOW_CDU"] = "flow:component-did-update";
     BLOCK_EVENTS["FLOW_RENDER"] = "flow:render";
-    BLOCK_EVENTS["FLOW_ATTACH_LISTENERS"] = "flow:attach";
 })(BLOCK_EVENTS || (BLOCK_EVENTS = {}));
 export class Block {
     constructor(tagName = 'div', props = { class: '', attributes: {}, handlers: {} }) {
@@ -153,6 +152,12 @@ export class Block {
     }
     get id() {
         return this._id;
+    }
+    show() {
+        this.getContent().style.display = "block";
+    }
+    hide() {
+        this.getContent().style.display = "none";
     }
 }
 Block._events = BLOCK_EVENTS;

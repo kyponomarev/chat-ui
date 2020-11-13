@@ -1,6 +1,7 @@
 import {Block, Props} from '../../modules/block';
 import ButtonComponent from "../button/button.component";
 import FormGroupComponent, {FormField} from "../form-group/form-group.component";
+import {Router} from "../../utils/router";
 
 export interface FormProps extends Props {
     submitButtonText: string;
@@ -10,19 +11,23 @@ export interface FormProps extends Props {
         url: string;
         text: string;
     };
+    successRedirectLink?: string;
 }
 
 export default class FormComponent extends Block {
     private _formGroups: FormGroupComponent[];
+    private _router: Router;
+    private _successRedirectLink: string;
 
     constructor(props: FormProps = {
         class: '',
         attributes: {},
         handlers: {},
         title: 'Войти',
-        backLink: {url: '/sign-in.html', text: 'Назад'},
+        backLink: {url: '/sign-in', text: 'Назад'},
         submitButtonText: 'Войти',
-        fields: []
+        fields: [],
+        successRedirectLink: '/'
     }) {
         const formGroups = props.fields.map(f => new FormGroupComponent(f));
         const button = new ButtonComponent(
@@ -43,8 +48,13 @@ export default class FormComponent extends Block {
                 onSubmitHandler: (evt) => this._onSubmit(evt)
             }
         });
+        Object.assign(this, {
+            _button: button,
+            _formGroups: formGroups,
+            _successRedirectLink: props.successRedirectLink || '/'
+        });
 
-        Object.assign(this, {_button: button, _formGroups: formGroups});
+        this._router = new Router('');
     }
 
     private _onSubmit(evt: Event) {
@@ -52,7 +62,8 @@ export default class FormComponent extends Block {
         if (this.isInvalid) {
             alert('Форма невалидна');
         } else {
-            window.location.replace((evt.target as HTMLFormElement).action);
+            // window.location.replace((evt.target as HTMLFormElement).action);
+            this._router.go(this._successRedirectLink);
         }
     }
 
