@@ -1,0 +1,35 @@
+.toast-wrapper {
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.toast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 30px;
+    min-width: 362px;
+    box-sizing: border-box;
+    border-radius: 30px;
+
+    z-index: 9000;
+
+    background: var(--chat-ui-color-primary);
+    color: var(--chat-ui-color-primary-contrast);
+}
+
+.toast_danger {
+    background: var(--chat-ui-color-danger);
+    color: var(--chat-ui-color-danger-contast);
+}
+
+

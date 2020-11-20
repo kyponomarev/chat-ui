@@ -5,14 +5,24 @@ import SignUpPage from "./pages/sign-up/sign-up.page.js";
 import NotFoundPage from "./pages/not-found/not-found.page.js";
 import InternalErrorPage from "./pages/internal-error/internal-error.page.js";
 import SettingsPage from "./pages/settings/settings.page.js";
+import NewChatPage from "./pages/new-chat/new-chat.page.js";
+import ChatSettingsPage from "./pages/chat-settings/chat-settings.page.js";
 export const routes = [
     {
         pathname: '/',
         pageClass: ChatsPage,
     },
     {
-        pathname: '/chat',
+        pathname: '/chats/:id',
         pageClass: ChatPage
+    },
+    {
+        pathname: '/chats/:id/settings',
+        pageClass: ChatSettingsPage
+    },
+    {
+        pathname: '/new-chat',
+        pageClass: NewChatPage
     },
     {
         pathname: '/sign-in',

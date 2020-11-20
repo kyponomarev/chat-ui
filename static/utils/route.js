@@ -2,6 +2,7 @@ import { render } from "./render-dom.js";
 export class Route {
     constructor(pathname, view, props, isNotFound = false) {
         this._pathname = pathname;
+        this._pattern = new RegExp('^' + pathname.replace(/:\w+/, '(\\w+)') + '$');
         this._blockClass = view;
         this._block = null;
         this._props = props;
@@ -13,7 +14,7 @@ export class Route {
         }
     }
     match(pathname) {
-        return pathname === this._pathname;
+        return this._pattern.test(pathname);
     }
     render() {
         if (!this._block) {
@@ -26,6 +27,9 @@ export class Route {
     }
     get isNotFound() {
         return this._isNotFound;
+    }
+    get pathname() {
+        return this._pathname;
     }
 }
 //# sourceMappingURL=route.js.map

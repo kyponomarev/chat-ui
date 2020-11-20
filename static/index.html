@@ -6,7 +6,7 @@
     <title>ChatUI | Список чатов</title>
 
     <!--    <link rel="stylesheet" href="css/chat-ui/ui-chat.css" type="text/css">-->
-    <link rel="stylesheet" href="./styles.css" type="text/css">
+    <link rel="stylesheet" href="/styles.css" type="text/css">
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,12 +14,13 @@
 </head>
 <body class="container container_full-height container_full-width">
 <div class="app"></div>
+<div class="app-toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-<script src="./templates.js"></script>
+<script src="/templates.js"></script>
 <script type="module">
-    import {App} from "./app.js";
+    import {App} from "/app.js";
 
-    const app = new App('.app');
+    new App();
 </script>
 </body>
 </html>

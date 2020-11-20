@@ -6,6 +6,8 @@ import SignUpPage from "./pages/sign-up/sign-up.page";
 import NotFoundPage from "./pages/not-found/not-found.page";
 import InternalErrorPage from "./pages/internal-error/internal-error.page";
 import SettingsPage from "./pages/settings/settings.page";
+import NewChatPage from "./pages/new-chat/new-chat.page";
+import ChatSettingsPage from "./pages/chat-settings/chat-settings.page";
 
 type Newable<T> = { new(...args: any[]): T; }; // Move
 // TODO move to Route.ts
@@ -22,8 +24,16 @@ export const routes: RouteDescriptor[] = [
         pageClass: ChatsPage,
     },
     {
-        pathname: '/chat',
+        pathname: '/chats/:id',
         pageClass: ChatPage
+    },
+    {
+        pathname: '/chats/:id/settings',
+        pageClass: ChatSettingsPage
+    },
+    {
+        pathname: '/new-chat',
+        pageClass: NewChatPage
     },
     {
         pathname: '/sign-in',

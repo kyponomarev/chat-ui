@@ -1,7 +1,6 @@
 import {Block, Props} from '../../modules/block';
 import ButtonComponent from "../button/button.component";
 import FormGroupComponent, {FormField} from "../form-group/form-group.component";
-import {Router} from "../../utils/router";
 
 export interface FormProps extends Props {
     submitButtonText: string;
@@ -16,8 +15,6 @@ export interface FormProps extends Props {
 
 export default class FormComponent extends Block {
     private _formGroups: FormGroupComponent[];
-    private _router: Router;
-    private _successRedirectLink: string;
 
     constructor(props: FormProps = {
         class: '',
@@ -29,7 +26,6 @@ export default class FormComponent extends Block {
         fields: [],
         successRedirectLink: '/'
     }) {
-        const formGroups = props.fields.map(f => new FormGroupComponent(f));
         const button = new ButtonComponent(
             {
                 text: props.submitButtonText,
@@ -39,22 +35,22 @@ export default class FormComponent extends Block {
             }
         );
 
+        const fgs = props.fields.map(f => new FormGroupComponent(f));
         super('div', {
             ...props,
-            formGroups: formGroups.map(fg => fg.renderToString()),
             button: button.renderToString(),
             backLink: props.backLink,
             handlers: {
                 onSubmitHandler: (evt) => this._onSubmit(evt)
-            }
-        });
-        Object.assign(this, {
-            _button: button,
-            _formGroups: formGroups,
-            _successRedirectLink: props.successRedirectLink || '/'
+            },
+            formGroups: fgs.map(f => f.renderToString())
         });
 
-        this._router = new Router('');
+        Object.assign(this, {
+            _button: button,
+            _successRedirectLink: props.successRedirectLink || '/',
+            _formGroups: fgs
+        });
     }
 
     private _onSubmit(evt: Event) {
@@ -62,10 +58,10 @@ export default class FormComponent extends Block {
         if (this.isInvalid) {
             alert('Форма невалидна');
         } else {
-            // window.location.replace((evt.target as HTMLFormElement).action);
-            this._router.go(this._successRedirectLink);
+            this.onSubmit(this.formData);
         }
     }
+
 
     render(): string {
         const template = Handlebars.templates['components/form/form.component'];
@@ -76,6 +72,28 @@ export default class FormComponent extends Block {
         return this._formGroups
             .map((fg: FormGroupComponent) => fg.isInvalid)
             .indexOf(true) !== -1;
+    }
+
+    // TODO replace any
+    get formData(): any {
+        return this._formGroups
+            .reduce((acc: any, fg: FormGroupComponent) => {
+                acc[fg.name] = fg.value;
+                return acc;
+            }, {});
+    }
+
+    onSubmit(formData: FormData) {
+        console.log(formData);
+    }
+
+    setFields(fields: FormField[]) {
+        fields.forEach(f => {
+            const fg = this._formGroups.find(fg => fg.name === f.name);
+            if (fg) {
+                fg.value = f.defaultValue;
+            }
+        })
     }
 
 }

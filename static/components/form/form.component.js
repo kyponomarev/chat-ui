@@ -1,7 +1,6 @@
 import { Block } from '../../modules/block.js';
 import ButtonComponent from "../button/button.component.js";
 import FormGroupComponent from "../form-group/form-group.component.js";
-import { Router } from "../../utils/router.js";
 export default class FormComponent extends Block {
     constructor(props = {
         class: '',
@@ -13,28 +12,27 @@ export default class FormComponent extends Block {
         fields: [],
         successRedirectLink: '/'
     }) {
-        const formGroups = props.fields.map(f => new FormGroupComponent(f));
         const button = new ButtonComponent({
             text: props.submitButtonText,
             class: 'button_full-width button_primary form__button',
             attributes: { type: 'submit' },
             handlers: {}
         });
+        const fgs = props.fields.map(f => new FormGroupComponent(f));
         super('div', {
             ...props,
-            formGroups: formGroups.map(fg => fg.renderToString()),
             button: button.renderToString(),
             backLink: props.backLink,
             handlers: {
                 onSubmitHandler: (evt) => this._onSubmit(evt)
-            }
+            },
+            formGroups: fgs.map(f => f.renderToString())
         });
         Object.assign(this, {
             _button: button,
-            _formGroups: formGroups,
-            _successRedirectLink: props.successRedirectLink || '/'
+            _successRedirectLink: props.successRedirectLink || '/',
+            _formGroups: fgs
         });
-        this._router = new Router('');
     }
     _onSubmit(evt) {
         evt.preventDefault();
@@ -42,8 +40,7 @@ export default class FormComponent extends Block {
             alert('Форма невалидна');
         }
         else {
-            // window.location.replace((evt.target as HTMLFormElement).action);
-            this._router.go(this._successRedirectLink);
+            this.onSubmit(this.formData);
         }
     }
     render() {
@@ -54,6 +51,25 @@ export default class FormComponent extends Block {
         return this._formGroups
             .map((fg) => fg.isInvalid)
             .indexOf(true) !== -1;
+    }
+    // TODO replace any
+    get formData() {
+        return this._formGroups
+            .reduce((acc, fg) => {
+            acc[fg.name] = fg.value;
+            return acc;
+        }, {});
+    }
+    onSubmit(formData) {
+        console.log(formData);
+    }
+    setFields(fields) {
+        fields.forEach(f => {
+            const fg = this._formGroups.find(fg => fg.name === f.name);
+            if (fg) {
+                fg.value = f.defaultValue;
+            }
+        });
     }
 }
 //# sourceMappingURL=form.component.js.map

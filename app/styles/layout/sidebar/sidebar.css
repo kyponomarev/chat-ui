@@ -27,3 +27,14 @@
     flex: 10;
     overflow-y: scroll;
 }
+
+/* TODO remove absolute*/
+.sidebar__footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}

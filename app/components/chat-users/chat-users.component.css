@@ -1,0 +1,52 @@
+.chat-users {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: 0;
+    padding: 10px;
+}
+
+.chat-users__item {
+    position: relative;
+
+    display: flex;
+
+    min-height: 71px;
+    min-width: 71px;
+
+    padding: 12px 0;
+    box-sizing: border-box;
+
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--chat-ui-color-dark);
+}
+
+.chat-users__avatar {
+    flex: 0 0 7px;
+    margin-right: 10px;
+}
+
+.chat-users__content {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+
+    flex: 1;
+    margin-right: 15px;
+}
+
+.chat-users__author {
+    margin-bottom: 4px;
+}
+
+.chat-users__detail {
+    width: 50%;
+    margin: 0;
+}
+
+.chat-users__button {
+    position: absolute;
+    left: -10px;
+    top: -7px;
+}

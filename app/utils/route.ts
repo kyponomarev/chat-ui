@@ -6,6 +6,7 @@ export interface Props extends Record<string, unknown> { // TODO remove record
 }
 
 export class Route {
+    private _pattern: RegExp;
     private _pathname: string;
     private _blockClass: any; // TODO change type
     private _block: Block | null;
@@ -14,10 +15,12 @@ export class Route {
 
     constructor(pathname: string, view: any, props: Props, isNotFound: boolean = false) { // TODO change view type
         this._pathname = pathname;
+        this._pattern = new RegExp('^' + pathname.replace(/:\w+/, '(\\w+)') + '$');
         this._blockClass = view;
         this._block = null;
         this._props = props;
         this._isNotFound = isNotFound;
+
     }
 
 
@@ -28,7 +31,7 @@ export class Route {
     }
 
     match(pathname: string): boolean {
-        return pathname === this._pathname;
+        return this._pattern.test(pathname);
     }
 
     render() {
@@ -43,6 +46,10 @@ export class Route {
 
     get isNotFound(): boolean {
         return this._isNotFound;
+    }
+
+    get pathname(): string {
+        return this._pathname;
     }
 
 

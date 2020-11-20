@@ -1,0 +1,31 @@
+<div class="page {{class}}">
+    <aside class="sidebar container__sidebar">
+        <header class="sidebar__header header">
+            <nav class="nav sidebar__nav">
+                <a routerlink href="{{backLink.url}}" class="nav__link nav__link_back">{{backLink.text}}</a>
+            </nav>
+        </header>
+    </aside>
+    <main class="main container__main">
+        <div class="chat">
+            <header class="header chat__header">
+            </header>
+            <div class="chat__window">
+                <div class="chat__users">
+                    {{{chatUsers}}}
+                </div>
+                <div class="chat__search">
+                    <h2>Поиск</h2>
+                    <form>
+                        <input class="search-bar" placeholder="Логин"
+                               autofocus
+                               onKeyup=keyupHandler
+                        />
+                    </form>
+                    {{{chatUsersSearch}}}
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

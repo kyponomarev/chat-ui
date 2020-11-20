@@ -2,6 +2,11 @@
     display: flex;
 }
 
+.nav_content-position_space-between {
+    justify-content: space-between;
+    align-items: center;
+}
+
 .nav_content-position_right {
     justify-content: flex-end;
 }
@@ -20,19 +25,6 @@
 .nav__link:hover {
     text-decoration: underline;
 }
-
-.nav__link:after {
-    content: " >";
-}
-
-.nav__link_back:after {
-    content: none;
-}
-
-.nav__link_back:before {
-    content: "< ";
-}
-
 .nav__link:last-child {
     margin-right: 0;
 }

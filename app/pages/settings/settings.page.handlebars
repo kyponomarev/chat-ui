@@ -5,17 +5,28 @@
                 <a routerlink href="{{backLink.url}}" class="nav__link nav__link_back">{{backLink.text}}</a>
             </nav>
         </header>
+
+        <footer class="sidebar__footer">
+            {{{logoutButton}}}
+        </footer>
     </aside>
     <main class="main container__main">
-        <div class="container container_indented">
-            <img src="/images/placeholders/user.png" alt="Пользователь" class="avatar avatar_large"/>
-            <label class="file-picker">
-                <img src="./images/icons/pen.svg"
-                     alt="Загрузка файла"/>
-                <input class="file-picker__input" type="file" name="avatar"/>
-            </label>
+        <div class="container container_indented flex flex_center_horizontal">
+            <form>
+                <img
+                        src="{{userAvatar}}"
+                        alt="Аватар" class="avatar avatar_large"/>
+                <label class="file-picker">
+                    <img src="./images/icons/pen.svg"
+                         alt="Загрузка файла"/>
+                    <input class="file-picker__input" type="file" name="avatar"
+                           onChange=avatarChangeHandler>
+                </label>
+            </form>
         </div>
-        {{{form}}}
+        <div class="flex flex_center_horizontal">
+            {{{profileForm}}}
+            {{{passwordForm}}}
+        </div>
     </main>
-
 </div>

@@ -10,6 +10,10 @@ export default class ChatsPage extends Block {
             text: 'Профиль',
             url: '/settings',
         },
+        createLink: {
+            text: 'Создать чат',
+            url: '/new-chat',
+        },
         searchBarPlaceholder: 'Найти'
     }) {
         super('div', {

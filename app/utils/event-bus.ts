@@ -6,7 +6,7 @@ export interface Listener {
 
 export default class EventBus {
 
-    listeners: Listener;
+    private listeners: Listener;
 
     constructor() {
         this.listeners = {};

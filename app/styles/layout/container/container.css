@@ -13,8 +13,9 @@
 .container_full-height {
     min-height: 100%;
 }
-
+/*TODO remove relative*/
 .container__sidebar {
+    position: relative;
     flex: 1 310px;
 }
 

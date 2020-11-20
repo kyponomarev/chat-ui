@@ -49,6 +49,16 @@ export class Router {
     forward() {
         this.history.forward();
     }
+    getParamValue(key) {
+        if (!this._currentRoute) {
+            return;
+        }
+        const pattern = new RegExp(this._currentRoute?.pathname.replace(':' + key, '(\\w+)'));
+        const match = window.location.href.match(pattern);
+        if (match) {
+            return match[1];
+        }
+    }
     getRoute(pathname) {
         return this.routes.find(route => route.match(pathname));
     }

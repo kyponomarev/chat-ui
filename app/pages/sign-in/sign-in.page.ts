@@ -1,6 +1,7 @@
 import {Block, Props} from "../../modules/block";
 import FormComponent from "../../components/form/form.component";
 import {FormField} from "../../components/form-group/form-group.component";
+import {App} from "../../app";
 
 export default class SignInPage extends Block {
     constructor(props: Props = {
@@ -37,11 +38,27 @@ export default class SignInPage extends Block {
             fields
         });
         super('div', {...props, form: form.renderToString()});
+        form.onSubmit = this._onFormSubmit.bind(this);
+
+        App.eventBus.on(App._events.AUTH_SIGNED_IN, this._onAuthSuccess.bind(this));
+        App.eventBus.on(App._events.AUTH_SIGN_IN_FAILURE, this._onAuthError.bind(this));
     }
 
     render(): string {
         const template = Handlebars.templates['pages/sign-in/sign-in.page'];
         return template(this._props);
+    }
+
+    private _onFormSubmit(formData: FormData) {
+        App.eventBus.emit(App._events.AUTH_SIGN_IN, formData);
+    }
+
+    private _onAuthSuccess() {
+        App.router.go('/');
+    }
+
+    private _onAuthError(error: string) {
+        App.eventBus.emit(App._events.TOAST_SHOW, 'Ошибка при авторизации: ' + error);
     }
 
 

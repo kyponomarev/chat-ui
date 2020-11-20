@@ -1,0 +1,22 @@
+<h2>Пользователи в чате</h2>
+<ul class="chat-users">
+    {{#each users}}
+        <li class="chat-users__item">
+            <button class="button button_rounded button_danger chat-users__button" data-id="{{id}}"
+                    onClick=onRemoveClickHandler
+            >
+                <span>-</span>
+            </button>
+            <img src="{{this.avatar}}" alt="Аватар" class="avatar chat-users__avatar"/>
+            <div class="chat-users__content">
+                <h2 class="text text_bold text_author">
+                    {{this.login}}
+                </h2>
+                <p class="text text_msg text_color_medium chat-users__detail">
+                    <span>{{this.first_name}}</span>
+                    <span>{{this.second_name}}</span>
+                </p>
+            </div>
+        </li>
+    {{/each}}
+</ul>

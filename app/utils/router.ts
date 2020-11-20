@@ -8,8 +8,9 @@ export interface Props extends Record<string, unknown> { // TODO remove record
 export class Router {
     private static __instance: Router;
 
+    private readonly _rootQuery: string;
+
     private _currentRoute: Route | null;
-    private _rootQuery: string;
 
     routes: Route[];
     history: History;
@@ -74,6 +75,18 @@ export class Router {
 
     forward() {
         this.history.forward();
+    }
+
+    getParamValue(key: string): string | undefined {
+        if (!this._currentRoute) {
+            return;
+        }
+
+        const pattern = new RegExp(this._currentRoute?.pathname.replace(':' + key, '(\\w+)'));
+        const match = window.location.href.match(pattern);
+        if (match) {
+            return match[1];
+        }
     }
 
     getRoute(pathname: string): Route | undefined {

@@ -63,6 +63,7 @@ export class Block {
     }
     _render() {
         this._element.innerHTML = this.render();
+        Block.hydrate();
     }
     _makePropsProxy(props) {
         return new Proxy(props, {
@@ -114,6 +115,13 @@ export class Block {
             stack.push(...children);
         }
         this._subscriptions = subscriptions;
+    }
+    getInternalElement(query) {
+        const elem = this.getContent().querySelector(query);
+        if (!elem) {
+            throw new Error('Element not found');
+        }
+        return elem;
     }
     attachListeners() {
         if (!this._props.handlers) {
