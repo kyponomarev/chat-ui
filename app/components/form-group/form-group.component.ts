@@ -11,12 +11,13 @@ export interface FormField {
 }
 
 export default class FormGroupComponent extends Block {
-    private readonly labelSelector = '.form-group__validation-feedback';
-    private readonly inputSelector = '.input';
+    private readonly _labelSelector = '.form-group__validation-feedback';
+    private readonly _inputSelector = '.input';
 
     private _invalid: boolean;
     private _pattern: RegExp;
     private _value: string;
+    private _name: string;
 
     constructor(field: FormField) {
         super('div', {
@@ -30,8 +31,8 @@ export default class FormGroupComponent extends Block {
             }
         });
 
-        const {pattern: _pattern, defaultValue: _value} = field;
-        Object.assign(this, {_invalid: _pattern.test(_value), _pattern, _value});
+        const {pattern: _pattern, defaultValue: _value, name: _name} = field;
+        Object.assign(this, {_invalid: _pattern.test(_value), _pattern, _value, _name});
     }
 
     render(): string {
@@ -43,6 +44,23 @@ export default class FormGroupComponent extends Block {
         this._validate();
         return this._invalid;
     }
+
+    get value(): string {
+        return this._value;
+    }
+
+    set value(val: string) {
+        const input = this.getInternalElement('input');
+        if (input) {
+            input.setAttribute('value', val);
+            this._value = val;
+        }
+    }
+
+    get name(): any {
+        return this._name;
+    }
+
 
     private _onBlur() {
         this._validate();
@@ -72,22 +90,13 @@ export default class FormGroupComponent extends Block {
 
 
     private _setItemInvalid() {
-        this._getInternalElement(this.labelSelector).classList.remove('hidden');
-        this._getInternalElement(this.inputSelector).classList.add('input_error');
+        this.getInternalElement(this._labelSelector).classList.remove('hidden');
+        this.getInternalElement(this._inputSelector).classList.add('input_error');
     }
 
     private _setItemValid() {
-        this._getInternalElement(this.labelSelector).classList.add('hidden');
-        this._getInternalElement(this.inputSelector).classList.remove('input_error');
+        this.getInternalElement(this._labelSelector).classList.add('hidden');
+        this.getInternalElement(this._inputSelector).classList.remove('input_error');
     }
-
-    private _getInternalElement(query: string): Element {
-        const elem = this.getContent().querySelector(query);
-        if (!elem) {
-            throw new Error('Element not found');
-        }
-        return elem;
-    }
-
 
 }

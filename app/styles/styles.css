@@ -24,4 +24,10 @@ body {
     font-size: 12px;
 }
 
+.app-toast {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 

@@ -15,6 +15,7 @@
 }
 
 .container__sidebar {
+    position: relative;
     flex: 1 310px;
 }
 

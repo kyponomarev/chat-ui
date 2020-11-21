@@ -1,12 +1,11 @@
 import {Block, Props} from "../../modules/block";
 import ChatListComponent from "../../components/chat-list/chat-list.component";
+import {Link} from "../../models/link";
 
 export interface ChatsPageProps extends Props {
     title: string;
-    profileLink: {
-        text: string;
-        url: string;
-    }
+    profileLink: Link,
+    createLink: Link
     searchBarPlaceholder: string;
 }
 
@@ -18,7 +17,11 @@ export default class ChatsPage extends Block {
         title: 'Выберите чат из списка слева',
         profileLink: {
             text: 'Профиль',
-            url: '/settings.html',
+            url: '/settings',
+        },
+        createLink: {
+            text: 'Создать чат',
+            url: '/new-chat',
         },
         searchBarPlaceholder: 'Найти'
     }) {

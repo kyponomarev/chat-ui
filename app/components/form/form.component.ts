@@ -10,6 +10,7 @@ export interface FormProps extends Props {
         url: string;
         text: string;
     };
+    successRedirectLink?: string;
 }
 
 export default class FormComponent extends Block {
@@ -20,11 +21,11 @@ export default class FormComponent extends Block {
         attributes: {},
         handlers: {},
         title: 'Войти',
-        backLink: {url: '/sign-in.html', text: 'Назад'},
+        backLink: {url: '/sign-in', text: 'Назад'},
         submitButtonText: 'Войти',
-        fields: []
+        fields: [],
+        successRedirectLink: '/'
     }) {
-        const formGroups = props.fields.map(f => new FormGroupComponent(f));
         const button = new ButtonComponent(
             {
                 text: props.submitButtonText,
@@ -34,17 +35,22 @@ export default class FormComponent extends Block {
             }
         );
 
+        const fgs = props.fields.map(f => new FormGroupComponent(f));
         super('div', {
             ...props,
-            formGroups: formGroups.map(fg => fg.renderToString()),
             button: button.renderToString(),
             backLink: props.backLink,
             handlers: {
                 onSubmitHandler: (evt) => this._onSubmit(evt)
-            }
+            },
+            formGroups: fgs.map(f => f.renderToString())
         });
 
-        Object.assign(this, {_button: button, _formGroups: formGroups});
+        Object.assign(this, {
+            _button: button,
+            _successRedirectLink: props.successRedirectLink || '/',
+            _formGroups: fgs
+        });
     }
 
     private _onSubmit(evt: Event) {
@@ -52,9 +58,10 @@ export default class FormComponent extends Block {
         if (this.isInvalid) {
             alert('Форма невалидна');
         } else {
-            window.location.replace((evt.target as HTMLFormElement).action);
+            this.onSubmit(this.formData);
         }
     }
+
 
     render(): string {
         const template = Handlebars.templates['components/form/form.component'];
@@ -65,6 +72,27 @@ export default class FormComponent extends Block {
         return this._formGroups
             .map((fg: FormGroupComponent) => fg.isInvalid)
             .indexOf(true) !== -1;
+    }
+
+    get formData(): Record<string, unknown> {
+        return this._formGroups
+            .reduce((acc: any, fg: FormGroupComponent) => {
+                acc[fg.name] = fg.value;
+                return acc;
+            }, {});
+    }
+
+    onSubmit(formData: Record<string, unknown>) {
+        console.log(formData);
+    }
+
+    setFields(fields: FormField[]) {
+        fields.forEach(f => {
+            const fg = this._formGroups.find(fg => fg.name === f.name);
+            if (fg) {
+                fg.value = f.defaultValue;
+            }
+        })
     }
 
 }

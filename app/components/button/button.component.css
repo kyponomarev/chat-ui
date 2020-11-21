@@ -38,6 +38,11 @@
     color: var(--chat-ui-color-primary-contrast);
 }
 
+.button_danger {
+    background-color: var(--chat-ui-color-danger);
+    color: var(--chat-ui-color-danger-contast);
+}
+
 .button:focus {
     outline: none;
 }

@@ -1,11 +1,10 @@
-import EventBus from '../utils/event-bus.js';
+import EventBus from '../utils/event-bus/event-bus.js';
 var BLOCK_EVENTS;
 (function (BLOCK_EVENTS) {
     BLOCK_EVENTS["INIT"] = "init";
     BLOCK_EVENTS["FLOW_CDM"] = "flow:component-did-mount";
     BLOCK_EVENTS["FLOW_CDU"] = "flow:component-did-update";
     BLOCK_EVENTS["FLOW_RENDER"] = "flow:render";
-    BLOCK_EVENTS["FLOW_ATTACH_LISTENERS"] = "flow:attach";
 })(BLOCK_EVENTS || (BLOCK_EVENTS = {}));
 export class Block {
     constructor(tagName = 'div', props = { class: '', attributes: {}, handlers: {} }) {
@@ -64,6 +63,7 @@ export class Block {
     }
     _render() {
         this._element.innerHTML = this.render();
+        Block.hydrate();
     }
     _makePropsProxy(props) {
         return new Proxy(props, {
@@ -116,6 +116,13 @@ export class Block {
         }
         this._subscriptions = subscriptions;
     }
+    getInternalElement(query) {
+        const elem = this.getContent().querySelector(query);
+        if (!elem) {
+            throw new Error('Element not found');
+        }
+        return elem;
+    }
     attachListeners() {
         if (!this._props.handlers) {
             return;
@@ -153,6 +160,12 @@ export class Block {
     }
     get id() {
         return this._id;
+    }
+    show() {
+        this.getContent().style.display = "block";
+    }
+    hide() {
+        this.getContent().style.display = "none";
     }
 }
 Block._events = BLOCK_EVENTS;

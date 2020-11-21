@@ -11,12 +11,10 @@ export default class FormGroupComponent extends Block {
                 keyupHandler: (evt) => this._onKeyup(evt)
             }
         });
-        this.labelSelector = '.form-group__validation-feedback';
-        this.inputSelector = '.input';
-        const { pattern: _pattern, defaultValue: _value } = field;
-        Object.assign(this, { _invalid: _pattern.test(_value), _pattern, _value });
-    }
-    componentDidMount() {
+        this._labelSelector = '.form-group__validation-feedback';
+        this._inputSelector = '.input';
+        const { pattern: _pattern, defaultValue: _value, name: _name } = field;
+        Object.assign(this, { _invalid: _pattern.test(_value), _pattern, _value, _name });
     }
     render() {
         const template = Handlebars.templates['components/form-group/form-group.component'];
@@ -25,6 +23,19 @@ export default class FormGroupComponent extends Block {
     get isInvalid() {
         this._validate();
         return this._invalid;
+    }
+    get value() {
+        return this._value;
+    }
+    set value(val) {
+        const input = this.getInternalElement('input');
+        if (input) {
+            input.setAttribute('value', val);
+            this._value = val;
+        }
+    }
+    get name() {
+        return this._name;
     }
     _onBlur() {
         this._validate();
@@ -49,19 +60,12 @@ export default class FormGroupComponent extends Block {
         }
     }
     _setItemInvalid() {
-        this._getInternalElement(this.labelSelector).classList.remove('hidden');
-        this._getInternalElement(this.inputSelector).classList.add('input_error');
+        this.getInternalElement(this._labelSelector).classList.remove('hidden');
+        this.getInternalElement(this._inputSelector).classList.add('input_error');
     }
     _setItemValid() {
-        this._getInternalElement(this.labelSelector).classList.add('hidden');
-        this._getInternalElement(this.inputSelector).classList.remove('input_error');
-    }
-    _getInternalElement(query) {
-        const elem = this.getContent().querySelector(query);
-        if (!elem) {
-            throw new Error('Element not found');
-        }
-        return elem;
+        this.getInternalElement(this._labelSelector).classList.add('hidden');
+        this.getInternalElement(this._inputSelector).classList.remove('input_error');
     }
 }
 //# sourceMappingURL=form-group.component.js.map

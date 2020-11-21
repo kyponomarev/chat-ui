@@ -4,14 +4,14 @@
     "target": "es2020",
     "declaration": false,
     "module": "es6",
-    "typeRoots": [
-      "./vendor"
-    ],
+    "types": ["handlebars", "jest", "node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
     "strictNullChecks": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "skipLibCheck": true
   }
 }

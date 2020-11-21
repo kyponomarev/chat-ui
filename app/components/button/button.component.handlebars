@@ -1,4 +1,10 @@
-<button class="button {{class}}" type="{{attributes.type}}">
-    {{text}}
-</button>
+<button class="button {{class}}"
+    {{#if attributes.id}}
+        id="{{attributes.id}}"
+    {{/if}}
+    {{#if attributes.type}}
+        type="{{attributes.type}}"
+    {{/if}}
+        onClick="onClickHandler"
+    >{{text}}</button>
 

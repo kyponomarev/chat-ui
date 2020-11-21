@@ -1,4 +1,4 @@
-import EventBus from '../utils/event-bus';
+import EventBus from '../utils/event-bus/event-bus';
 
 export interface Attributes {
     [key: string]: string;
@@ -105,8 +105,10 @@ export abstract class Block {
         }
     }
 
+
     private _render() {
         this._element.innerHTML = this.render();
+        Block.hydrate();
     }
 
     private _makePropsProxy(props: Props): Props {
@@ -171,6 +173,14 @@ export abstract class Block {
         this._subscriptions = subscriptions;
     }
 
+    getInternalElement(query: string): Element {
+        const elem = this.getContent().querySelector(query);
+        if (!elem) {
+            throw new Error('Element not found');
+        }
+        return elem;
+    }
+
     attachListeners() {
         if (!this._props.handlers) {
             return;
@@ -221,7 +231,14 @@ export abstract class Block {
         if (!nextProps) {
             return;
         }
-
         Object.assign(this._props, nextProps);
     };
+
+    show() {
+        (<HTMLElement>this.getContent()).style.display = "block";
+    }
+
+    hide() {
+        (<HTMLElement>this.getContent()).style.display = "none";
+    }
 }

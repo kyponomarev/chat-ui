@@ -8,7 +8,7 @@ export default class NotFoundPage extends Block {
         description: 'Вы нашли несуществующую страницу!',
         backLink: {
             text: 'Назад',
-            url: '/sign-in.html',
+            url: '/home',
         }
     }) {
         super('main', {

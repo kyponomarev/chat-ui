@@ -18,7 +18,7 @@ export default class InternalErrorPage extends Block {
         description: 'Произошла ошибка на стороне сервера!',
         backLink: {
             text: 'Назад',
-            url: '/sign-in.html',
+            url: '/home',
         }
     }) {
 
