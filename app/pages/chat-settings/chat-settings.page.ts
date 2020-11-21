@@ -13,7 +13,7 @@ export default class ChatSettingsPage extends Block {
         class: 'container container_full-height container_full-width',
         attributes: {},
         handlers: {keyupHandler: event => this._onSearchKeyup(event)},
-        backLink: {text: 'Назад', url: '/'}
+        backLink: {text: 'Назад', url: '/home'}
     }) {
 
         const chatId = Number(App.router.getParamValue('id'));
