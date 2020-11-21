@@ -7,7 +7,6 @@ export default class ToastComponent extends Block {
     }
     render() {
         const template = Handlebars.templates['components/toast/toast.component'];
-        console.log(template);
         return template(this._props);
     }
     showToast(message) {

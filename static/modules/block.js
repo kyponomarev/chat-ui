@@ -1,4 +1,4 @@
-import EventBus from '../utils/event-bus.js';
+import EventBus from '../utils/event-bus/event-bus.js';
 var BLOCK_EVENTS;
 (function (BLOCK_EVENTS) {
     BLOCK_EVENTS["INIT"] = "init";

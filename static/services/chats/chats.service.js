@@ -1,6 +1,6 @@
 import { Service } from "../../modules/service.js";
 import { environment } from "../../environment.js";
-import { Http } from "../../utils/http.js";
+import { Http } from "../../utils/http/http.js";
 import { App } from "../../app.js";
 var CHATS_EVENTS;
 (function (CHATS_EVENTS) {
@@ -70,7 +70,6 @@ export class ChatsService extends Service {
         });
     }
     _loadChatUsers(id) {
-        console.log('_loadChatUsers');
         Http.get(this._baseUrl + `/${id}/users`, {})
             .then((res) => {
             App.eventBus.emit(this.events.CHATS_USERS_LOADED, res);
@@ -80,7 +79,6 @@ export class ChatsService extends Service {
         });
     }
     _addUsersToChat(chatId, users) {
-        console.log(users);
         Http.put(this._baseUrl + `/users`, { data: { chatId, users } })
             .then(() => {
             App.eventBus.emit(this.events.CHATS_USERS_ADDED);

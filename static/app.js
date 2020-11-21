@@ -1,6 +1,6 @@
-import { Router } from "./utils/router.js";
+import { Router } from "./utils/router/router.js";
 import { routes } from "./app.routing.js";
-import EventBus from "./utils/event-bus.js";
+import EventBus from "./utils/event-bus/event-bus.js";
 import { AuthService } from "./services/auth/auth.service.js";
 import { ToastService } from "./services/toast/toast.service.js";
 import { ChatsService } from "./services/chats/chats.service.js";

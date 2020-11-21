@@ -24,7 +24,6 @@ export default class ChatListComponent extends Block {
         // )
     }
     _onChatsLoaded(chats) {
-        console.log(chats);
         this.setProps({ chats });
         ChatListComponent.hydrate();
     }

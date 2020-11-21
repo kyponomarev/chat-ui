@@ -44,7 +44,6 @@ export default class SignInPage extends Block {
         return template(this._props);
     }
     _onFormSubmit(formData) {
-        console.log(formData);
         App.eventBus.emit(App._events.AUTH_SIGN_IN, formData);
     }
     _onAuthSuccess() {

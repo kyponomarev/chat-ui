@@ -13,7 +13,6 @@ export default class FormGroupComponent extends Block {
         });
         this._labelSelector = '.form-group__validation-feedback';
         this._inputSelector = '.input';
-        console.log(this._props.handlers);
         const { pattern: _pattern, defaultValue: _value, name: _name } = field;
         Object.assign(this, { _invalid: _pattern.test(_value), _pattern, _value, _name });
     }
@@ -45,7 +44,6 @@ export default class FormGroupComponent extends Block {
         this._validate();
     }
     _onKeyup(evt) {
-        console.log('_onKeyup');
         const target = evt.target;
         if (target) {
             this._value = target.value;

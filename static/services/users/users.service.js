@@ -1,6 +1,6 @@
 import { Service } from "../../modules/service.js";
 import { environment } from "../../environment.js";
-import { Http } from "../../utils/http.js";
+import { Http } from "../../utils/http/http.js";
 import { App } from "../../app.js";
 var USERS_EVENTS;
 (function (USERS_EVENTS) {
@@ -47,7 +47,6 @@ export class UsersService extends Service {
             App.eventBus.emit(App._events.USERS_PASSWORD_CHANGED);
         })
             .catch((error) => {
-            console.log('here2');
             App.eventBus.emit(App._events.USERS_PASSWORD_CHANGE_FAILURE, error);
         });
     }
@@ -61,7 +60,6 @@ export class UsersService extends Service {
         });
     }
     _changeUserAvatar(formData) {
-        console.log(formData);
         Http.put(this._baseUrl + '/profile/avatar', {
             formData: formData,
             headers: { 'Access-Control-Allow-Origin': '*' }
@@ -70,7 +68,6 @@ export class UsersService extends Service {
             App.eventBus.emit(App._events.USERS_PROFILE_AVATAR_CHANGED);
         })
             .catch((error) => {
-            console.log(error);
             App.eventBus.emit(App._events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, error);
         });
     }

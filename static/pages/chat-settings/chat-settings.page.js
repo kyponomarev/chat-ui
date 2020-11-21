@@ -29,10 +29,8 @@ export default class ChatSettingsPage extends Block {
         return template(this._props);
     }
     _onSearchKeyup(evt) {
-        console.log('_onSearchKeyup');
         const target = evt.target;
         if (target) {
-            console.log(target.value);
             App.eventBus.emit(App._events.USERS_SEARCH, target.value);
         }
     }

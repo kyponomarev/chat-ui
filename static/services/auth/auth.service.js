@@ -1,7 +1,7 @@
 import { Service } from "../../modules/service.js";
 import { environment } from "../../environment.js";
 import { App } from "../../app.js";
-import { Http } from "../../utils/http.js";
+import { Http } from "../../utils/http/http.js";
 var AUTH_EVENTS;
 (function (AUTH_EVENTS) {
     AUTH_EVENTS["AUTH_SIGN_UP"] = "auth:sign-up";
@@ -60,7 +60,6 @@ export class AuthService extends Service {
             App.eventBus.emit(App._events.AUTH_PROFILE_LOADED, user);
         })
             .catch((error) => {
-            console.log(error);
             App.eventBus.emit(App._events.AUTH_PROFILE_LOAD_FAILURE, error);
         });
     }

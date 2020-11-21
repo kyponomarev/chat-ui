@@ -1,7 +1,7 @@
 import {Service} from "../../modules/service";
-import EventBus from "../../utils/event-bus";
+import EventBus from "../../utils/event-bus/event-bus";
 import ToastComponent from "../../components/toast/toast.component";
-import {render} from "../../utils/render-dom";
+import {render} from "../../utils/render-dom/render-dom";
 
 enum TOAST_EVENTS {
     TOAST_SHOW = 'toast:show'

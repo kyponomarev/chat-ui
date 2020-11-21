@@ -1,9 +1,9 @@
 import {Service} from "../../modules/service";
 import {environment} from "../../environment";
 import {App} from "../../app";
-import {Http} from "../../utils/http";
+import {Http} from "../../utils/http/http";
 import {User} from "../../models/user";
-import EventBus from "../../utils/event-bus";
+import EventBus from "../../utils/event-bus/event-bus";
 
 enum AUTH_EVENTS {
     AUTH_SIGN_UP = "auth:sign-up",

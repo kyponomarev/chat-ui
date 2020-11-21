@@ -167,9 +167,7 @@ export default class SettingsPage extends Block {
         const target = event.target;
         if (target && target.files && target.files.length > 0) {
             const formData = new FormData();
-            console.log(target.files[0]);
             formData.append('avatar', target.files[0]);
-            console.log(formData);
             App.eventBus.emit(App._events.USERS_PROFILE_AVATAR_CHANGE, formData);
         }
     }

@@ -26,8 +26,8 @@ export default class ChatComponent extends Block {
     _onChatLoad(chat) {
         this.setProps({ ...chat });
     }
-    _onChatLoadError(chat) {
-        console.log(chat);
+    _onChatLoadError(error) {
+        console.log(error);
     }
 }
 //# sourceMappingURL=chat.component.js.map

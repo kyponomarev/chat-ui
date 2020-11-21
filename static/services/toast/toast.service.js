@@ -1,6 +1,6 @@
 import { Service } from "../../modules/service.js";
 import ToastComponent from "../../components/toast/toast.component.js";
-import { render } from "../../utils/render-dom.js";
+import { render } from "../../utils/render-dom/render-dom.js";
 var TOAST_EVENTS;
 (function (TOAST_EVENTS) {
     TOAST_EVENTS["TOAST_SHOW"] = "toast:show";

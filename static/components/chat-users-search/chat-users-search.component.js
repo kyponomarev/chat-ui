@@ -26,7 +26,6 @@ export default class ChatUsersSearchComponent extends Block {
     _onAddButtonClick(evt) {
         const target = evt.currentTarget;
         if (target) {
-            console.log(target.dataset.id);
             //@ts-ignore
             App.eventBus.emit(App._events.CHATS_USERS_ADD, this._props.chatId, [Number(target.dataset.id)]);
         }

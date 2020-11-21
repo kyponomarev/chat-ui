@@ -1,4 +1,4 @@
-import EventBus from '../utils/event-bus';
+import EventBus from '../utils/event-bus/event-bus';
 
 export interface Attributes {
     [key: string]: string;

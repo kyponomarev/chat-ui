@@ -1,7 +1,7 @@
 import {Service} from "../../modules/service";
 import {environment} from "../../environment";
-import EventBus from "../../utils/event-bus";
-import {Http} from "../../utils/http";
+import EventBus from "../../utils/event-bus/event-bus";
+import {Http} from "../../utils/http/http";
 import {User} from "../../models/user";
 import {App} from "../../app";
 
