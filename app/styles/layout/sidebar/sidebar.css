@@ -28,7 +28,6 @@
     overflow-y: scroll;
 }
 
-/* TODO remove absolute*/
 .sidebar__footer {
     position: absolute;
     bottom: 0;

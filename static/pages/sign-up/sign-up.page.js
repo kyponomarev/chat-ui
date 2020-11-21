@@ -1,6 +1,8 @@
 import { Block } from "../../modules/block.js";
 import FormComponent from "../../components/form/form.component.js";
 import { App } from "../../app.js";
+import { ToastService } from "../../services/toast/toast.service.js";
+import { AuthService } from "../../services/auth/auth.service.js";
 export default class SignUpPage extends Block {
     constructor(props = {
         class: 'main main_centered container__main container__main_single',
@@ -68,21 +70,22 @@ export default class SignUpPage extends Block {
         });
         super('div', { ...props, form: form.renderToString() });
         form.onSubmit = this._onFormSubmit.bind(this);
-        App.eventBus.on(App._events.AUTH_SIGNED_UP, this._onAuthSuccess.bind(this));
-        App.eventBus.on(App._events.AUTH_SIGN_UP_FAILURE, this._onAuthError.bind(this));
+        App.eventBus.on(AuthService.events.AUTH_SIGNED_UP, this._onAuthSuccess.bind(this));
+        App.eventBus.on(AuthService.events.AUTH_SIGN_UP_FAILURE, this._onAuthError.bind(this));
     }
     render() {
         const template = Handlebars.templates['pages/sign-up/sign-up.page'];
         return template(this._props);
     }
     _onFormSubmit(formData) {
-        App.eventBus.emit(App._events.AUTH_SIGN_UP, formData);
+        App.eventBus.emit(AuthService.events.AUTH_SIGN_UP, formData);
     }
     _onAuthSuccess() {
-        App.router.go('/');
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Добро пожаловать!', 'success');
+        App.router.go('/home');
     }
     _onAuthError(error) {
-        App.eventBus.emit(App._events.TOAST_SHOW, 'Ошибка при регистрации: ' + error);
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Ошибка при регистрации: ' + error);
     }
 }
 //# sourceMappingURL=sign-up.page.js.map

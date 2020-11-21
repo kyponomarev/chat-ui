@@ -1,22 +1,12 @@
 import EventBus from "../utils/event-bus/event-bus";
 
-export interface ServiceEvents {
-    [key: string]: string;
-}
-
 export abstract class Service {
-    private readonly _events: ServiceEvents;
+    protected _eventBus: EventBus;
 
-    constructor(events: ServiceEvents) {
-        this._events = events;
+    protected constructor(eventBus: EventBus) {
+        this._eventBus = eventBus;
     }
 
-
-    get events() {
-        return this._events;
-    }
-
-    abstract attachEvents(eventBus: EventBus): Service;
-
+    abstract attachEvents(): void;
 }
 

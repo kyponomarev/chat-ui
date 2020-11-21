@@ -1,6 +1,8 @@
 import { Block } from '../../modules/block.js';
 import { SESSIONS } from "./mock.js";
 import { App } from "../../app.js";
+import { ToastService } from "../../services/toast/toast.service.js";
+import { ChatsService } from "../../services/chats/chats.service.js";
 export default class ChatComponent extends Block {
     constructor(props = {
         class: '',
@@ -15,9 +17,9 @@ export default class ChatComponent extends Block {
             ...props
         });
         this._chatId = props.id;
-        App.eventBus.on(App._events.CHATS_LOADED_BY_ID, this._onChatLoad.bind(this));
-        App.eventBus.on(App._events.CHATS_LOADED_BY_ID_FAILURE, this._onChatLoadError.bind(this));
-        App.eventBus.emit(App._events.CHATS_LOAD_BY_ID, this._chatId);
+        App.eventBus.on(ChatsService.events.CHATS_LOADED_BY_ID, this._onChatLoad.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_LOAD_BY_ID_FAILURE, this._onChatLoadError.bind(this));
+        App.eventBus.emit(ChatsService.events.CHATS_LOAD_BY_ID, this._chatId);
     }
     render() {
         const template = Handlebars.templates['components/chat/chat.component'];
@@ -27,7 +29,7 @@ export default class ChatComponent extends Block {
         this.setProps({ ...chat });
     }
     _onChatLoadError(error) {
-        console.log(error);
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, error);
     }
 }
 //# sourceMappingURL=chat.component.js.map

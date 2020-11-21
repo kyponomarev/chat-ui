@@ -32,4 +32,9 @@
     color: var(--chat-ui-color-danger-contast);
 }
 
+.toast_success {
+    background: var(--chat-ui-color-primary);
+    color: var(--chat-ui-color-primary-contrast);
+}
+
 

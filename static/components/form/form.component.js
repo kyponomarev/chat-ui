@@ -52,7 +52,6 @@ export default class FormComponent extends Block {
             .map((fg) => fg.isInvalid)
             .indexOf(true) !== -1;
     }
-    // TODO replace any
     get formData() {
         return this._formGroups
             .reduce((acc, fg) => {

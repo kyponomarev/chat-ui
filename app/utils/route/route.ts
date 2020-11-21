@@ -1,19 +1,21 @@
 import {render} from "../render-dom/render-dom"
 import {Block} from "../../modules/block";
 
-export interface Props extends Record<string, unknown> { // TODO remove record
+export interface Props {
+    [key: string]: unknown;
+
     rootQuery: string;
 }
 
 export class Route {
     private _pattern: RegExp;
     private _pathname: string;
-    private _blockClass: any; // TODO change type
+    private _blockClass: { new(...args: any[]): Block; };
     private _block: Block | null;
     private _props: Props;
     private _isNotFound: boolean;
 
-    constructor(pathname: string, view: any, props: Props, isNotFound: boolean = false) { // TODO change view type
+    constructor(pathname: string, view: { new(...args: any[]): Block; }, props: Props, isNotFound: boolean = false) {
         this._pathname = pathname;
         this._pattern = new RegExp('^' + pathname.replace(/:\w+/, '(\\w+)') + '$');
         this._blockClass = view;
@@ -36,7 +38,9 @@ export class Route {
     render() {
         if (!this._block) {
             this._block = new this._blockClass();
-            render(this._props.rootQuery, <Block>this._block);
+            render(this._props.rootQuery, this._block);
+            //TODO remove ts-ignore
+            //@ts-ignore
             this._blockClass.hydrate();
             return;
         }

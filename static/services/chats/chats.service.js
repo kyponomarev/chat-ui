@@ -1,7 +1,6 @@
 import { Service } from "../../modules/service.js";
 import { environment } from "../../environment.js";
 import { Http } from "../../utils/http/http.js";
-import { App } from "../../app.js";
 var CHATS_EVENTS;
 (function (CHATS_EVENTS) {
     CHATS_EVENTS["CHATS_LOAD"] = "chats:load";
@@ -24,17 +23,18 @@ var CHATS_EVENTS;
     CHATS_EVENTS["CHATS_USERS_DELETE_FAILURE"] = "chats:users-delete-failure";
 })(CHATS_EVENTS || (CHATS_EVENTS = {}));
 export class ChatsService extends Service {
-    constructor() {
-        super(CHATS_EVENTS);
+    constructor(eventBus) {
+        super(eventBus);
         this._baseUrl = environment.apiUrl + '/chats';
+        this.attachEvents();
     }
-    attachEvents(eventBus) {
-        eventBus.on(this.events.CHATS_LOAD, this._loadChats.bind(this));
-        eventBus.on(this.events.CHATS_CREATE, this._createChat.bind(this));
-        eventBus.on(this.events.CHATS_LOAD_BY_ID, this._loadChat.bind(this));
-        eventBus.on(this.events.CHATS_USERS_LOAD, this._loadChatUsers.bind(this));
-        eventBus.on(this.events.CHATS_USERS_ADD, this._addUsersToChat.bind(this));
-        eventBus.on(this.events.CHATS_USERS_DELETE, this._deleteUsersFromChat.bind(this));
+    attachEvents() {
+        this._eventBus.on(ChatsService.events.CHATS_LOAD, this._loadChats.bind(this));
+        this._eventBus.on(ChatsService.events.CHATS_CREATE, this._createChat.bind(this));
+        this._eventBus.on(ChatsService.events.CHATS_LOAD_BY_ID, this._loadChat.bind(this));
+        this._eventBus.on(ChatsService.events.CHATS_USERS_LOAD, this._loadChatUsers.bind(this));
+        this._eventBus.on(ChatsService.events.CHATS_USERS_ADD, this._addUsersToChat.bind(this));
+        this._eventBus.on(ChatsService.events.CHATS_USERS_DELETE, this._deleteUsersFromChat.bind(this));
         return this;
     }
     _getChats() {
@@ -42,59 +42,60 @@ export class ChatsService extends Service {
     }
     _loadChats() {
         this._getChats().then((chats) => {
-            App.eventBus.emit(this.events.CHATS_LOADED, chats);
+            this._eventBus.emit(ChatsService.events.CHATS_LOADED, chats);
         }).catch((error) => {
-            App.eventBus.emit(this.events.CHATS_LOAD_FAILURE, error);
+            this._eventBus.emit(ChatsService.events.CHATS_LOAD_FAILURE, error);
         });
     }
     _createChat(title) {
         Http.post(this._baseUrl, { data: { title } })
             .then((res) => {
-            App.eventBus.emit(this.events.CHATS_CREATED, res);
+            this._eventBus.emit(ChatsService.events.CHATS_CREATED, res);
         })
             .catch((error) => {
-            App.eventBus.emit(this.events.CHATS_CREATE_FAILURE, error);
+            this._eventBus.emit(ChatsService.events.CHATS_CREATE_FAILURE, error);
         });
     }
     _loadChat(id) {
         this._getChats().then((chats) => {
             const chat = chats.find(c => c.id === id);
             if (chat) {
-                App.eventBus.emit(this.events.CHATS_LOADED_BY_ID, chat);
+                this._eventBus.emit(ChatsService.events.CHATS_LOADED_BY_ID, chat);
             }
             else {
                 throw new Error('chat with id=${id} not found');
             }
         }).catch((error) => {
-            App.eventBus.emit(this.events.CHATS_LOAD_BY_ID_FAILURE, error);
+            this._eventBus.emit(ChatsService.events.CHATS_LOAD_BY_ID_FAILURE, error);
         });
     }
     _loadChatUsers(id) {
         Http.get(this._baseUrl + `/${id}/users`, {})
             .then((res) => {
-            App.eventBus.emit(this.events.CHATS_USERS_LOADED, res);
+            this._eventBus.emit(ChatsService.events.CHATS_USERS_LOADED, res);
         })
             .catch((error) => {
-            App.eventBus.emit(this.events.CHATS_USERS_LOAD_FAILURE, error);
+            this._eventBus.emit(ChatsService.events.CHATS_USERS_LOAD_FAILURE, error);
         });
     }
     _addUsersToChat(chatId, users) {
         Http.put(this._baseUrl + `/users`, { data: { chatId, users } })
             .then(() => {
-            App.eventBus.emit(this.events.CHATS_USERS_ADDED);
+            this._eventBus.emit(ChatsService.events.CHATS_USERS_ADDED);
         })
             .catch((error) => {
-            App.eventBus.emit(this.events.CHATS_USERS_ADD_FAILURE, error);
+            this._eventBus.emit(ChatsService.events.CHATS_USERS_ADD_FAILURE, error);
         });
     }
     _deleteUsersFromChat(chatId, users) {
         Http.delete(this._baseUrl + `/users`, { data: { chatId, users } })
             .then(() => {
-            App.eventBus.emit(this.events.CHATS_USERS_DELETED, users);
+            this._eventBus.emit(ChatsService.events.CHATS_USERS_DELETED, users);
         })
             .catch((error) => {
-            App.eventBus.emit(this.events.CHATS_USERS_DELETE_FAILURE, error);
+            this._eventBus.emit(ChatsService.events.CHATS_USERS_DELETE_FAILURE, error);
         });
     }
 }
+ChatsService.events = CHATS_EVENTS;
 //# sourceMappingURL=chats.service.js.map

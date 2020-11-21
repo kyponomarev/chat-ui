@@ -14,7 +14,6 @@ export class Http {
     }
 }
 Http.methods = HTTP_METHODS;
-// TODO add generic
 Http.get = (url, options) => {
     return Http._request(
     // @ts-ignore

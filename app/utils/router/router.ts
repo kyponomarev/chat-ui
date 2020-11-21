@@ -1,7 +1,9 @@
 import {Route} from "../route/route";
 import {Block} from "../../modules/block";
 
-export interface Props extends Record<string, unknown> { // TODO remove record
+export interface Props {
+    [key: string]: unknown;
+
     rootQuery: string;
 }
 
@@ -28,7 +30,6 @@ export class Router {
         Router.__instance = this;
     }
 
-    // TODO use newable for block
     use(pathname: string, block: { new(...args: any[]): Block; }, isNotFound?: boolean) {
         const route = new Route(pathname, block, {rootQuery: this._rootQuery}, isNotFound);
         this.routes.push(route);

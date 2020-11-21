@@ -26,7 +26,6 @@ export interface RequestOptions extends TransportOptions {
 
 export class Http {
     static methods = HTTP_METHODS;
-    // TODO add generic
     static get = (url: string, options: TransportOptions) => {
         return Http._request(
             // @ts-ignore

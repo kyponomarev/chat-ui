@@ -9,8 +9,8 @@ import SettingsPage from "./pages/settings/settings.page";
 import NewChatPage from "./pages/new-chat/new-chat.page";
 import ChatSettingsPage from "./pages/chat-settings/chat-settings.page";
 
-type Newable<T> = { new(...args: any[]): T; }; // Move
-// TODO move to Route.ts
+type Newable<T> = { new(...args: any[]): T; };
+
 export interface RouteDescriptor {
     pathname: string;
     pageClass: Newable<Block>;
@@ -21,6 +21,10 @@ export interface RouteDescriptor {
 export const routes: RouteDescriptor[] = [
     {
         pathname: '/',
+        pageClass: SignInPage,
+    },
+    {
+        pathname: '/home',
         pageClass: ChatsPage,
     },
     {

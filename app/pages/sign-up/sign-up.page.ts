@@ -2,6 +2,8 @@ import {Block, Props} from "../../modules/block";
 import FormComponent from "../../components/form/form.component";
 import {FormField} from "../../components/form-group/form-group.component";
 import {App} from "../../app";
+import {ToastService} from "../../services/toast/toast.service";
+import {AuthService} from "../../services/auth/auth.service";
 
 export default class SignUpPage extends Block {
     constructor(props: Props = {
@@ -73,8 +75,8 @@ export default class SignUpPage extends Block {
         super('div', {...props, form: form.renderToString()});
 
         form.onSubmit = this._onFormSubmit.bind(this);
-        App.eventBus.on(App._events.AUTH_SIGNED_UP, this._onAuthSuccess.bind(this));
-        App.eventBus.on(App._events.AUTH_SIGN_UP_FAILURE, this._onAuthError.bind(this));
+        App.eventBus.on(AuthService.events.AUTH_SIGNED_UP, this._onAuthSuccess.bind(this));
+        App.eventBus.on(AuthService.events.AUTH_SIGN_UP_FAILURE, this._onAuthError.bind(this));
     }
 
     render(): string {
@@ -83,15 +85,16 @@ export default class SignUpPage extends Block {
     }
 
     private _onFormSubmit(formData: FormData) {
-        App.eventBus.emit(App._events.AUTH_SIGN_UP, formData);
+        App.eventBus.emit(AuthService.events.AUTH_SIGN_UP, formData);
     }
 
     private _onAuthSuccess() {
-        App.router.go('/');
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Добро пожаловать!', 'success');
+        App.router.go('/home');
     }
 
     private _onAuthError(error: string) {
-        App.eventBus.emit(App._events.TOAST_SHOW, 'Ошибка при регистрации: ' + error);
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Ошибка при регистрации: ' + error);
     }
 
 

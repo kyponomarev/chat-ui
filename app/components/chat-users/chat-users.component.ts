@@ -2,6 +2,7 @@ import {Block, Props} from '../../modules/block';
 import {User} from "../../models/user";
 import {App} from "../../app";
 import {environment} from "../../environment";
+import {ChatsService} from "../../services/chats/chats.service";
 
 export interface ChatUsersProps extends Props {
     chatId: number;
@@ -17,9 +18,9 @@ export default class ChatUsersComponent extends Block {
             handlers: {onRemoveClickHandler: event => this._onRemoveButtonClick(event)}
         });
 
-        App.eventBus.on(App._events.CHATS_USERS_ADDED, this._onUsersAdded.bind(this));
-        App.eventBus.on(App._events.CHATS_USERS_DELETED, this._onUsersRemoved.bind(this));
-        App.eventBus.on(App._events.CHATS_USERS_LOADED, this._onUsersLoaded.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_USERS_ADDED, this._onUsersAdded.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_USERS_DELETED, this._onUsersRemoved.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_USERS_LOADED, this._onUsersLoaded.bind(this));
 
     }
 
@@ -29,7 +30,7 @@ export default class ChatUsersComponent extends Block {
     }
 
     componentDidMount() {
-        App.eventBus.emit(App._events.CHATS_USERS_LOAD, this._props.chatId);
+        App.eventBus.emit(ChatsService.events.CHATS_USERS_LOAD, this._props.chatId);
     }
 
     private _onUsersLoaded(users: User[]) {
@@ -40,7 +41,7 @@ export default class ChatUsersComponent extends Block {
     }
 
     private _onUsersAdded() {
-        App.eventBus.emit(App._events.CHATS_USERS_LOAD, this._props.chatId);
+        App.eventBus.emit(ChatsService.events.CHATS_USERS_LOAD, this._props.chatId);
     }
 
     private _onUsersRemoved(removedUsers: number[]) {
@@ -52,7 +53,7 @@ export default class ChatUsersComponent extends Block {
         const target = evt.currentTarget;
         if (target) {
             //@ts-ignore
-            App.eventBus.emit(App._events.CHATS_USERS_DELETE, (<ChatUsersProps>this._props).chatId, [Number(target.dataset.id)]);
+            App.eventBus.emit(ChatsService.events.CHATS_USERS_DELETE, (<ChatUsersProps>this._props).chatId, [Number(target.dataset.id)]);
         }
     }
 

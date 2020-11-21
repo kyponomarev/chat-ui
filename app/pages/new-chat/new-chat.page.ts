@@ -4,9 +4,12 @@ import {FormField} from "../../components/form-group/form-group.component";
 import {App} from "../../app";
 import {Chat} from "../../models/chat";
 import ChatListComponent from "../../components/chat-list/chat-list.component";
+import {ChatsService} from "../../services/chats/chats.service";
+import {ToastService} from "../../services/toast/toast.service";
+import {Link} from "../../models/link";
 
 export interface NewPageProps extends Props {
-    backLink: { text: string, url: string }
+    backLink: Link
 }
 
 export default class NewChatPage extends Block {
@@ -14,7 +17,7 @@ export default class NewChatPage extends Block {
         class: 'container container_full-height container_full-width',
         attributes: {},
         handlers: {},
-        backLink: {text: 'Назад', url: '/'}
+        backLink: {text: 'Назад', url: '/home'}
     }) {
 
         const fields: FormField[] = [
@@ -42,7 +45,7 @@ export default class NewChatPage extends Block {
         super('div', {...props, form: form.renderToString(), chatList: chatList.renderToString()});
 
         form.onSubmit = this._onFormSubmit.bind(this);
-        App.eventBus.on(App._events.CHATS_CREATED, this._onChatCreated.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_CREATED, this._onChatCreated.bind(this));
     }
 
 
@@ -52,10 +55,11 @@ export default class NewChatPage extends Block {
     }
 
     private _onFormSubmit(formData: any) {
-        App.eventBus.emit(App._events.CHATS_CREATE, formData.title);
+        App.eventBus.emit(ChatsService.events.CHATS_CREATE, formData.title);
     }
 
     private _onChatCreated(chat: Chat) {
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Чат успешно создан', 'success');
         App.router.go(`/chats/${chat.id}`);
     }
 

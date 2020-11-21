@@ -2,6 +2,7 @@ import { Block } from "../../modules/block.js";
 import { App } from "../../app.js";
 import ChatUsersComponent from "../../components/chat-users/chat-users.component.js";
 import ChatUsersSearchComponent from "../../components/chat-users-search/chat-users-search.component.js";
+import { UsersService } from "../../services/users/users.service.js";
 export default class ChatSettingsPage extends Block {
     constructor(props = {
         class: 'container container_full-height container_full-width',
@@ -31,7 +32,7 @@ export default class ChatSettingsPage extends Block {
     _onSearchKeyup(evt) {
         const target = evt.target;
         if (target) {
-            App.eventBus.emit(App._events.USERS_SEARCH, target.value);
+            App.eventBus.emit(UsersService.events.USERS_SEARCH, target.value);
         }
     }
 }

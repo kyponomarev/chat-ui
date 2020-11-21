@@ -74,8 +74,7 @@ export default class FormComponent extends Block {
             .indexOf(true) !== -1;
     }
 
-    // TODO replace any
-    get formData(): any {
+    get formData(): Record<string, unknown> {
         return this._formGroups
             .reduce((acc: any, fg: FormGroupComponent) => {
                 acc[fg.name] = fg.value;
@@ -83,7 +82,7 @@ export default class FormComponent extends Block {
             }, {});
     }
 
-    onSubmit(formData: FormData) {
+    onSubmit(formData: Record<string, unknown>) {
         console.log(formData);
     }
 

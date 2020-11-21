@@ -1,6 +1,6 @@
 import {Service} from "../../modules/service";
 import EventBus from "../../utils/event-bus/event-bus";
-import ToastComponent from "../../components/toast/toast.component";
+import ToastComponent, {toastTypes} from "../../components/toast/toast.component";
 import {render} from "../../utils/render-dom/render-dom";
 
 enum TOAST_EVENTS {
@@ -8,26 +8,29 @@ enum TOAST_EVENTS {
 }
 
 export class ToastService extends Service {
+    static readonly events = TOAST_EVENTS;
+    private readonly _query = '.app-toast';
     private _toastBlock: ToastComponent;
 
-    constructor(query: string = '.app-toast') {
+    constructor(eventBus: EventBus) {
+        super(eventBus);
+
         const toast = new ToastComponent({class: '', handlers: {}});
-        super(TOAST_EVENTS);
-
-        render(query, toast);
+        render(this._query, toast);
         this._toastBlock = toast;
+
+        this.attachEvents();
     }
 
-    attachEvents(eventBus: EventBus): ToastService {
-        eventBus.on(TOAST_EVENTS.TOAST_SHOW, this.show.bind(this));
-        return this;
+    attachEvents() {
+        this._eventBus.on(TOAST_EVENTS.TOAST_SHOW, this.show.bind(this));
     }
 
-    show(message: string) {
-        this._toastBlock.showToast(message);
+    show(message: string, type: toastTypes = 'danger') {
+        this._toastBlock.showToast(message, type);
         setTimeout(() => {
             this._toastBlock.hideToast();
-        }, 1000)
+        }, 2000)
     }
 
 

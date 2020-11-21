@@ -10,6 +10,10 @@ import ChatSettingsPage from "./pages/chat-settings/chat-settings.page.js";
 export const routes = [
     {
         pathname: '/',
+        pageClass: SignInPage,
+    },
+    {
+        pathname: '/home',
         pageClass: ChatsPage,
     },
     {

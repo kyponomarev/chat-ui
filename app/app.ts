@@ -40,19 +40,14 @@ export class App {
         routes
             .reduce((router, route) => router.use(route.pathname, route.pageClass, route.isNotFoundPage), App.router)
             .start();
-        this._initRouterLinks('body'); // TODO change selector ?
+        this._initRouterLinks('body');
 
         App.__instance = this;
     }
 
     private _initServices(servicesClasses: ServiceClass[]) {
         const eventBus = App.eventBus;
-        servicesClasses
-            .map((serviceClass) => new serviceClass())
-            .forEach(s => {
-                App._events = Object.assign(App._events, s.events);
-                s.attachEvents(eventBus);
-            });
+        servicesClasses.forEach((serviceClass) => new serviceClass(eventBus))
     }
 
     private _initRouterLinks(rootQuery: string) {

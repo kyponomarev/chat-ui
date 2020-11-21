@@ -1,9 +1,6 @@
 export class Service {
-    constructor(events) {
-        this._events = events;
-    }
-    get events() {
-        return this._events;
+    constructor(eventBus) {
+        this._eventBus = eventBus;
     }
 }
 //# sourceMappingURL=service.js.map

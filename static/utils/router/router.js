@@ -10,7 +10,6 @@ export class Router {
         this._rootQuery = rootQuery;
         Router.__instance = this;
     }
-    // TODO use newable for block
     use(pathname, block, isNotFound) {
         const route = new Route(pathname, block, { rootQuery: this._rootQuery }, isNotFound);
         this.routes.push(route);

@@ -3,7 +3,6 @@ import {environment} from "../../environment";
 import EventBus from "../../utils/event-bus/event-bus";
 import {Http} from "../../utils/http/http";
 import {User} from "../../models/user";
-import {App} from "../../app";
 
 enum USERS_EVENTS {
     USERS_SEARCH = "users:search",
@@ -25,17 +24,20 @@ enum USERS_EVENTS {
 }
 
 export class UsersService extends Service {
+    static readonly events = USERS_EVENTS;
     private _baseUrl = environment.apiUrl + '/user';
 
-    constructor() {
-        super(USERS_EVENTS);
+    constructor(eventBus: EventBus) {
+        super(eventBus);
+
+        this.attachEvents();
     }
 
-    attachEvents(eventBus: EventBus): UsersService {
-        eventBus.on(this.events.USERS_SEARCH, this._search.bind(this));
-        eventBus.on(this.events.USERS_PASSWORD_CHANGE, this._changePassword.bind(this));
-        eventBus.on(this.events.USERS_PROFILE_CHANGE, this._changeUserProfile.bind(this));
-        eventBus.on(this.events.USERS_PROFILE_AVATAR_CHANGE, this._changeUserAvatar.bind(this));
+    attachEvents() {
+        this._eventBus.on(UsersService.events.USERS_SEARCH, this._search.bind(this));
+        this._eventBus.on(UsersService.events.USERS_PASSWORD_CHANGE, this._changePassword.bind(this));
+        this._eventBus.on(UsersService.events.USERS_PROFILE_CHANGE, this._changeUserProfile.bind(this));
+        this._eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGE, this._changeUserAvatar.bind(this));
         return this;
     }
 
@@ -43,30 +45,30 @@ export class UsersService extends Service {
     private _search(login: string) {
         Http.post(this._baseUrl + '/search', {data: {login}})
             .then((users: User[]) => {
-                App.eventBus.emit(App._events.USERS_FOUND, users);
+                this._eventBus.emit(UsersService.events.USERS_FOUND, users);
             })
             .catch((error: string) => {
-                App.eventBus.emit(App._events.USERS_SEARCH_FAILURE, error);
+                this._eventBus.emit(UsersService.events.USERS_SEARCH_FAILURE, error);
             })
     }
 
     private _changePassword(formData: { oldPassword: string, newPassword: string }) {
         Http.put(this._baseUrl + '/password', {data: {...formData}})
             .then(() => {
-                App.eventBus.emit(App._events.USERS_PASSWORD_CHANGED);
+                this._eventBus.emit(UsersService.events.USERS_PASSWORD_CHANGED);
             })
             .catch((error: string) => {
-                App.eventBus.emit(App._events.USERS_PASSWORD_CHANGE_FAILURE, error);
+                this._eventBus.emit(UsersService.events.USERS_PASSWORD_CHANGE_FAILURE, error);
             });
     }
 
     private _changeUserProfile(user: User) {
         Http.put(this._baseUrl + '/profile', {data: {...user}})
             .then(() => {
-                App.eventBus.emit(App._events.USERS_PROFILE_CHANGED);
+                this._eventBus.emit(UsersService.events.USERS_PROFILE_CHANGED);
             })
             .catch((error: string) => {
-                App.eventBus.emit(App._events.USERS_PROFILE_CHANGE_FAILURE, error);
+                this._eventBus.emit(UsersService.events.USERS_PROFILE_CHANGE_FAILURE, error);
             });
     }
 
@@ -76,10 +78,10 @@ export class UsersService extends Service {
             headers: {'Access-Control-Allow-Origin': '*'}
         })
             .then(() => {
-                App.eventBus.emit(App._events.USERS_PROFILE_AVATAR_CHANGED);
+                this._eventBus.emit(UsersService.events.USERS_PROFILE_AVATAR_CHANGED);
             })
             .catch((error: string) => {
-                App.eventBus.emit(App._events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, error);
+                this._eventBus.emit(UsersService.events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, error);
             });
     }
 }

@@ -1,6 +1,8 @@
 import { Block } from '../../modules/block.js';
 import { App } from "../../app.js";
 import { environment } from "../../environment.js";
+import { ChatsService } from "../../services/chats/chats.service.js";
+import { UsersService } from "../../services/users/users.service.js";
 export default class ChatUsersSearchComponent extends Block {
     constructor(props) {
         super('div', {
@@ -9,15 +11,15 @@ export default class ChatUsersSearchComponent extends Block {
                 addClickHandler: event => this._onAddButtonClick(event)
             }
         });
-        App.eventBus.on(App._events.CHATS_USERS_DELETED, this._onUserRemove.bind(this));
-        App.eventBus.on(App._events.USERS_FOUND, this._onUsersFound.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_USERS_DELETED, this._onUserRemove.bind(this));
+        App.eventBus.on(UsersService.events.USERS_FOUND, this._onUsersFound.bind(this));
     }
     render() {
         const template = Handlebars.templates['components/chat-users-search/chat-users-search.component'];
         return template(this._props);
     }
     componentDidMount() {
-        App.eventBus.emit(App._events.USERS_SEARCH, '');
+        App.eventBus.emit(UsersService.events.USERS_SEARCH, '');
     }
     _onUserRemove(removedUsers) {
         const users = this._props.users.filter(r => removedUsers.indexOf(r.id) === -1);
@@ -27,7 +29,7 @@ export default class ChatUsersSearchComponent extends Block {
         const target = evt.currentTarget;
         if (target) {
             //@ts-ignore
-            App.eventBus.emit(App._events.CHATS_USERS_ADD, this._props.chatId, [Number(target.dataset.id)]);
+            App.eventBus.emit(ChatsService.events.CHATS_USERS_ADD, this._props.chatId, [Number(target.dataset.id)]);
         }
     }
     _onUsersFound(users) {

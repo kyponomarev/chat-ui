@@ -2,6 +2,7 @@ import {Block, Props} from "../../modules/block";
 import {App} from "../../app";
 import ChatUsersComponent from "../../components/chat-users/chat-users.component";
 import ChatUsersSearchComponent from "../../components/chat-users-search/chat-users-search.component";
+import {UsersService} from "../../services/users/users.service";
 
 export interface ChatSettingsPageProps extends Props {
     backLink: { text: string, url: string },
@@ -43,7 +44,7 @@ export default class ChatSettingsPage extends Block {
     private _onSearchKeyup(evt: Event) {
         const target = evt.target as HTMLInputElement;
         if (target) {
-            App.eventBus.emit(App._events.USERS_SEARCH, target.value);
+            App.eventBus.emit(UsersService.events.USERS_SEARCH, target.value);
         }
     }
 

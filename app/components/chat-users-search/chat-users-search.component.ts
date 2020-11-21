@@ -2,6 +2,8 @@ import {Block, Props} from '../../modules/block';
 import {User} from "../../models/user";
 import {App} from "../../app";
 import {environment} from "../../environment";
+import {ChatsService} from "../../services/chats/chats.service";
+import {UsersService} from "../../services/users/users.service";
 
 export interface ChatUsersSearchProps extends Props {
     chatId: number;
@@ -18,9 +20,8 @@ export default class ChatUsersSearchComponent extends Block {
             }
         });
 
-
-        App.eventBus.on(App._events.CHATS_USERS_DELETED, this._onUserRemove.bind(this));
-        App.eventBus.on(App._events.USERS_FOUND, this._onUsersFound.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_USERS_DELETED, this._onUserRemove.bind(this));
+        App.eventBus.on(UsersService.events.USERS_FOUND, this._onUsersFound.bind(this));
     }
 
     render(): string {
@@ -29,7 +30,7 @@ export default class ChatUsersSearchComponent extends Block {
     }
 
     componentDidMount() {
-        App.eventBus.emit(App._events.USERS_SEARCH, '');
+        App.eventBus.emit(UsersService.events.USERS_SEARCH, '');
     }
 
     private _onUserRemove(removedUsers: number[]) {
@@ -41,7 +42,7 @@ export default class ChatUsersSearchComponent extends Block {
         const target = evt.currentTarget as HTMLInputElement;
         if (target) {
             //@ts-ignore
-            App.eventBus.emit(App._events.CHATS_USERS_ADD, (<ChatUsersSearchProps>this._props).chatId, [Number(target.dataset.id)]);
+            App.eventBus.emit(ChatsService.events.CHATS_USERS_ADD, (<ChatUsersSearchProps>this._props).chatId, [Number(target.dataset.id)]);
         }
     }
 

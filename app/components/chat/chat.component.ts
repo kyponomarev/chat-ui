@@ -2,6 +2,8 @@ import {Block, Props} from '../../modules/block';
 import {SESSIONS} from "./mock";
 import {App} from "../../app";
 import {Chat} from "../../models/chat";
+import {ToastService} from "../../services/toast/toast.service";
+import {ChatsService} from "../../services/chats/chats.service";
 
 export interface Message {
     id: string;
@@ -38,9 +40,9 @@ export default class ChatComponent extends Block {
         });
 
         this._chatId = props.id;
-        App.eventBus.on(App._events.CHATS_LOADED_BY_ID, this._onChatLoad.bind(this));
-        App.eventBus.on(App._events.CHATS_LOADED_BY_ID_FAILURE, this._onChatLoadError.bind(this));
-        App.eventBus.emit(App._events.CHATS_LOAD_BY_ID, this._chatId);
+        App.eventBus.on(ChatsService.events.CHATS_LOADED_BY_ID, this._onChatLoad.bind(this));
+        App.eventBus.on(ChatsService.events.CHATS_LOAD_BY_ID_FAILURE, this._onChatLoadError.bind(this));
+        App.eventBus.emit(ChatsService.events.CHATS_LOAD_BY_ID, this._chatId);
     }
 
     render(): string {
@@ -53,6 +55,6 @@ export default class ChatComponent extends Block {
     }
 
     private _onChatLoadError(error: string) {
-        console.log(error);
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, error);
     }
 }

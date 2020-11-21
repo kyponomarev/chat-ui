@@ -3,6 +3,9 @@ import FormComponent from "../../components/form/form.component.js";
 import ButtonComponent from "../../components/button/button.component.js";
 import { App } from "../../app.js";
 import { environment } from "../../environment.js";
+import { AuthService } from "../../services/auth/auth.service.js";
+import { UsersService } from "../../services/users/users.service.js";
+import { ToastService } from "../../services/toast/toast.service.js";
 export default class SettingsPage extends Block {
     constructor(props = {
         class: 'container container_full-height container_full-width',
@@ -10,7 +13,7 @@ export default class SettingsPage extends Block {
         handlers: {
             avatarChangeHandler: (event) => this._onAvatarFileChange(event)
         },
-        backLink: { text: 'Назад', url: '/' },
+        backLink: { text: 'Назад', url: '/home' },
         userAvatar: environment.avatarPlaceholderUrl
     }) {
         const profileFormFieldsCreator = (user) => {
@@ -124,22 +127,22 @@ export default class SettingsPage extends Block {
         profileForm.onSubmit = this._onProfileFormSubmit.bind(this);
         this._profileFormFieldsCreator = profileFormFieldsCreator;
         this._profileForm = profileForm;
-        App.eventBus.on(App._events.AUTH_LOGGED_OUT, this._onLoggedOut.bind(this));
-        App.eventBus.on(App._events.USERS_PROFILE_CHANGE_FAILURE, this._onError.bind(this));
-        App.eventBus.on(App._events.USERS_PASSWORD_CHANGE_FAILURE, this._onError.bind(this));
-        App.eventBus.on(App._events.AUTH_PROFILE_LOADED, this._onProfileLoad.bind(this));
-        App.eventBus.on(App._events.USERS_PROFILE_AVATAR_CHANGED, this._onAvatarChange.bind(this));
-        App.eventBus.on(App._events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, this._onError.bind(this));
-        App.eventBus.on(App._events.USERS_PASSWORD_CHANGED, () => {
-            console.log('Password changed');
+        App.eventBus.on(AuthService.events.AUTH_LOGGED_OUT, this._onLoggedOut.bind(this));
+        App.eventBus.on(UsersService.events.USERS_PROFILE_CHANGE_FAILURE, this._onError.bind(this));
+        App.eventBus.on(UsersService.events.USERS_PASSWORD_CHANGE_FAILURE, this._onError.bind(this));
+        App.eventBus.on(AuthService.events.AUTH_PROFILE_LOADED, this._onProfileLoad.bind(this));
+        App.eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGED, this._onAvatarChange.bind(this));
+        App.eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, this._onError.bind(this));
+        App.eventBus.on(UsersService.events.USERS_PASSWORD_CHANGED, () => {
+            this._onSuccess('Вы успешно изменили пароль');
         });
-        App.eventBus.on(App._events.USERS_PROFILE_CHANGED, () => {
-            console.log('Profile changed');
+        App.eventBus.on(UsersService.events.USERS_PROFILE_CHANGED, () => {
+            this._onSuccess('Вы успешно изменили профиль');
         });
-        App.eventBus.emit(App._events.AUTH_PROFILE_LOAD);
+        App.eventBus.emit(AuthService.events.AUTH_PROFILE_LOAD);
     }
     _onLogoutButtonClick() {
-        App.eventBus.emit(App._events.AUTH_LOGOUT);
+        App.eventBus.emit(AuthService.events.AUTH_LOGOUT);
     }
     _onLoggedOut() {
         App.router.go('/sign-in');
@@ -155,24 +158,28 @@ export default class SettingsPage extends Block {
         this._profileForm.setFields(fields);
     }
     _onPasswordFormSubmit(formData) {
-        App.eventBus.emit(App._events.USERS_PASSWORD_CHANGE, formData);
+        App.eventBus.emit(UsersService.events.USERS_PASSWORD_CHANGE, formData);
     }
     _onProfileFormSubmit(formData) {
-        App.eventBus.emit(App._events.USERS_PROFILE_CHANGE, formData);
+        App.eventBus.emit(UsersService.events.USERS_PROFILE_CHANGE, formData);
     }
     _onError(error) {
-        App.eventBus.emit(App._events.TOAST_SHOW, 'Ошибка при регистрации: ' + error);
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Ошибка: ' + error);
+    }
+    _onSuccess(message) {
+        App.eventBus.emit(ToastService.events.TOAST_SHOW, message, 'success');
     }
     _onAvatarFileChange(event) {
         const target = event.target;
         if (target && target.files && target.files.length > 0) {
             const formData = new FormData();
             formData.append('avatar', target.files[0]);
-            App.eventBus.emit(App._events.USERS_PROFILE_AVATAR_CHANGE, formData);
+            App.eventBus.emit(UsersService.events.USERS_PROFILE_AVATAR_CHANGE, formData);
         }
     }
     _onAvatarChange() {
-        App.eventBus.emit(App._events.AUTH_PROFILE_LOAD);
+        App.eventBus.emit(AuthService.events.AUTH_PROFILE_LOAD);
+        this._onSuccess('Вы успешно изменили аватарку');
     }
 }
 //# sourceMappingURL=settings.page.js.map
