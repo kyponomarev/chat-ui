@@ -1,7 +1,6 @@
 import {Http} from "./http";
 
-let baseUrl = process.env.testServerUrl || 'http://localhost:3000';
-
+let baseUrl = process.env.testServerUrl || 'http://localhost:3001';
 describe('utils/http', () => {
     it('should send requests by GET method', async () => {
         const res = await Http.get(baseUrl, {data: {hello: 'world'}});

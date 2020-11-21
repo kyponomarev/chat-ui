@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -21,7 +21,7 @@ function findFilesByExtension(base, ext, files, result) {
     return result
 }
 
-module.exports = function completeExt() {
+function completeExt() {
     const files = findFilesByExtension('./static', 'js');
 
     files.forEach(f => {
@@ -29,7 +29,9 @@ module.exports = function completeExt() {
         const result = fileContent.replace(/(import.*?)((['"]);)/g, "$1.js$2");
         fs.writeFileSync(f, result, 'utf8');
     });
-};
+}
+
+completeExt();
 
 
 

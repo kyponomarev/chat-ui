@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "node scripts/build.js",
-    "test": "jest",
-    "start-test-server": "node test-server.js",
-    "test-with-test-server": "start-server-and-test start-test-server http://localhost:3001 test"
+    "build": "npm run build:ts&& npm run build:complete-ext && npm run build:compile-template && npm run build:styles && npm run build:assets && npm run build:index",
+    "build:ts": "tsc --build",
+    "build:complete-ext": "node complete-ext.js",
+    "build:compile-template": "handlebars app -f static/templates.js",
+    "build:styles": "postcss app/styles/styles.css -d static -u autoprefixer postcss-import-ext-glob postcss-import",
+    "build:assets": "cp -r './app/images' './static/images'",
+    "build:index": "cp './app/index.html' './static/index.html'",
+    "test": "start-server-and-test test:start-test-server http://localhost:3001 test:jest",
+    "test:jest": "jest",
+    "test:start-test-server": "node test-server.js"
   },
   "repository": {
     "type": "git",
