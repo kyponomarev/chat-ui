@@ -1,3 +1,5 @@
+import "./styles/styles.css"
+
 import {Router} from "./utils/router/router";
 import {routes} from "./app.routing";
 import EventBus from "./utils/event-bus/event-bus";

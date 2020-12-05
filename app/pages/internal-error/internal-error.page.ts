@@ -1,3 +1,5 @@
+import * as template from './internal-error.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 
 export interface InternalErrorPageProps extends Props {
@@ -28,7 +30,6 @@ export default class InternalErrorPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/internal-error/internal-error.page'];
         return template(this._props);
     }
 }

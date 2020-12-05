@@ -1,3 +1,6 @@
+import "./chat-users-search.component.css";
+import * as template from './chat-users-search.component.handlebars';
+
 import {Block, Props} from '../../modules/block';
 import {User} from "../../models/user";
 import {App} from "../../app";
@@ -25,7 +28,6 @@ export default class ChatUsersSearchComponent extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['components/chat-users-search/chat-users-search.component'];
         return template(this._props);
     }
 

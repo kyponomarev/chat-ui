@@ -1,3 +1,6 @@
+import "./chat-list.component.css";
+import * as template from "./chat-list.component.handlebars";
+
 import {Block, Props} from '../../modules/block';
 import {App} from "../../app";
 import {Chat} from "../../models/chat";
@@ -27,7 +30,6 @@ export default class ChatListComponent extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['components/chat-list/chat-list.component'];
         return template(this._props);
     }
 

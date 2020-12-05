@@ -5,3 +5,5 @@ declare module "handlebars" {
 declare module "handlebars/runtime" {
     export = Handlebars;
 }
+
+declare module "*.handlebars";

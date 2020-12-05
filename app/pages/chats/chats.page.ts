@@ -1,3 +1,5 @@
+import * as template from './chats.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 import ChatListComponent from "../../components/chat-list/chat-list.component";
 import {Link} from "../../models/link";
@@ -33,7 +35,6 @@ export default class ChatsPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/chats/chats.page'];
         return template(this._props);
     }
 }

@@ -1,3 +1,5 @@
+import * as template from './not-found.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 
 export interface NotFoundPageProps extends Props {
@@ -28,7 +30,6 @@ export default class NotFoundPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/not-found/not-found.page'];
         return template(this._props);
     }
 }

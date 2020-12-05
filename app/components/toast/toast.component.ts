@@ -1,3 +1,6 @@
+import "./toast.component.css";
+import * as template from './toast.component.handlebars';
+
 import {Block, Props} from '../../modules/block';
 
 export type toastTypes = 'danger' | 'success';
@@ -13,7 +16,6 @@ export default class ToastComponent extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['components/toast/toast.component'];
         return template(this._props);
     }
 

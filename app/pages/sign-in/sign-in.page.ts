@@ -1,3 +1,5 @@
+import * as template from './sign-in.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 import FormComponent from "../../components/form/form.component";
 import {FormField} from "../../components/form-group/form-group.component";
@@ -47,7 +49,6 @@ export default class SignInPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/sign-in/sign-in.page'];
         return template(this._props);
     }
 
@@ -63,7 +64,6 @@ export default class SignInPage extends Block {
     private _onAuthError(error: string) {
         App.eventBus.emit(ToastService.events.TOAST_SHOW, 'Ошибка при авторизации: ' + error);
     }
-
 
 }
 

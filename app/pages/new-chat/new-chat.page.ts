@@ -1,3 +1,5 @@
+import * as template from './new-chat.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 import FormComponent from "../../components/form/form.component";
 import {FormField} from "../../components/form-group/form-group.component";
@@ -50,7 +52,6 @@ export default class NewChatPage extends Block {
 
 
     render(): string {
-        const template = Handlebars.templates['pages/new-chat/new-chat.page'];
         return template(this._props);
     }
 

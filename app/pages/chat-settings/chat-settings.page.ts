@@ -1,3 +1,5 @@
+import * as template from "./chat-settings.page.handlebars";
+
 import {Block, Props} from "../../modules/block";
 import {App} from "../../app";
 import ChatUsersComponent from "../../components/chat-users/chat-users.component";
@@ -36,7 +38,6 @@ export default class ChatSettingsPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/chat-settings/chat-settings.page'];
         return template(this._props);
     }
 

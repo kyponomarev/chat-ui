@@ -4,14 +4,23 @@
     "target": "es2020",
     "declaration": false,
     "module": "es6",
-    "types": ["handlebars", "jest", "node"],
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": [
+      "handlebars",
+      "jest",
+      "node"
+    ],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
     "strictNullChecks": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "alwaysStrict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
   }
 }

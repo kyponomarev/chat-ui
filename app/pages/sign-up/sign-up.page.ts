@@ -1,3 +1,5 @@
+import * as template from './sign-up.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 import FormComponent from "../../components/form/form.component";
 import {FormField} from "../../components/form-group/form-group.component";
@@ -80,7 +82,6 @@ export default class SignUpPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/sign-up/sign-up.page'];
         return template(this._props);
     }
 

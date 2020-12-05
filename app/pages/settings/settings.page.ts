@@ -1,3 +1,5 @@
+import * as template from './settings.page.handlebars';
+
 import {Block, Props} from "../../modules/block";
 import FormComponent from "../../components/form/form.component";
 import {FormField} from "../../components/form-group/form-group.component";
@@ -174,7 +176,6 @@ export default class SettingsPage extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['pages/settings/settings.page'];
         return template(this._props);
     }
 

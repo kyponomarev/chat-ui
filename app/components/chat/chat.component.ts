@@ -1,3 +1,6 @@
+import "./chat.component.css";
+import * as template from './chat.component.handlebars';
+
 import {Block, Props} from '../../modules/block';
 import {SESSIONS} from "./mock";
 import {App} from "../../app";
@@ -46,7 +49,6 @@ export default class ChatComponent extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['components/chat/chat.component'];
         return template(this._props);
     }
 

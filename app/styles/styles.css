@@ -1,5 +1,3 @@
-/*@import "../components/button/button.component.css";*/
-@import-glob "../components/**/*.css";
 @import-glob "./layout/**/*.css";
 @import-glob "./basic/**/*.css";
 

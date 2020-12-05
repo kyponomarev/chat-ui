@@ -1,7 +1,7 @@
 <div class="chat">
     <header class="header chat__header">
         <div class="chat__user">
-            <img src="/images/placeholders/user.png" alt="Аватар" class="avatar avatar_small chat__avatar"/>
+            <img src="/assets/images//placeholders/user.png" alt="Аватар" class="avatar avatar_small chat__avatar"/>
             <div class="chat-list__content">
                 <h1 class="text text_bold text_author chat__author-name">
                     {{title}}
@@ -9,7 +9,7 @@
             </div>
         </div>
         <a routerlink href="/chats/{{id}}/settings" class="button button_rounded button_icon-only msg-form__submit">
-            <img src="/images/icons/more.svg"
+            <img src="/assets/images//icons/more.svg"
                  alt="Settings"/>
         </a>
     </header>
@@ -38,13 +38,13 @@
     </div>
     <form class="chat__form msg-form" action="" method="">
         <label class="file-picker msg-form__file-picker">
-            <img src="/images/icons/file.svg"
+            <img src="/assets/images//icons/file.svg"
                  alt="Загрузка файла"/>
             <input class="file-picker__input" type="file" name="file"/>
         </label>
         <input class="msg-form__input" type="text" placeholder="Сообщение" name="message"/>
         <button type="submit" class="button button_primary button_rounded button_icon-only msg-form__submit">
-            <img src="/images/icons/arrow_right.svg"
+            <img src="/assets/images//icons/arrow_right.svg"
                  alt="Отправить"/>
         </button>
     </form>

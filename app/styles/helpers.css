@@ -1,5 +1,6 @@
 .hidden {
-    display: none;
+    /*TODO remove important*/
+    display: none!important;
 }
 
 .flex {

@@ -1,3 +1,6 @@
+import "./form-group.component.css";
+import * as template from './form-group.component.handlebars';
+
 import {Block} from "../../modules/block";
 
 export interface FormField {
@@ -36,7 +39,6 @@ export default class FormGroupComponent extends Block {
     }
 
     render(): string {
-        const template = Handlebars.templates['components/form-group/form-group.component'];
         return template(this._props);
     }
 

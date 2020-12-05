@@ -1,3 +1,6 @@
+import "./form.component.css";
+import * as template from './form.component.handlebars';
+
 import {Block, Props} from '../../modules/block';
 import ButtonComponent from "../button/button.component";
 import FormGroupComponent, {FormField} from "../form-group/form-group.component";
@@ -64,7 +67,6 @@ export default class FormComponent extends Block {
 
 
     render(): string {
-        const template = Handlebars.templates['components/form/form.component'];
         return template(this._props);
     }
 

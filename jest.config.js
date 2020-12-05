@@ -2,12 +2,12 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
     roots: ['<rootDir>/app'],
-    setupFiles: [
-        '<rootDir>/jest.setup.js',
-        '<rootDir>/test-templates.js'
-    ],
+    moduleNameMapper: {
+        "\\.css$": "<rootDir>/__mocks__/style.mock.js"
+
+    },
     "transform": {
         ".+\\.(ts|tsx)$": "ts-jest",
-        "^.+\\.(js|jsx)$": "babel-jest",
+        "\\.handlebars": "jest-handlebars",
     }
 };
