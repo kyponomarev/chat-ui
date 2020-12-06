@@ -6,7 +6,7 @@ import {User} from '../../models/user';
 import environment from '../../environment';
 import ChatsService from '../../services/chats/chats.service';
 import UsersService from '../../services/users/users.service';
-import {App} from "../../app";
+import {App} from '../../app';
 
 export interface ChatUsersSearchProps extends Props {
   chatId: number;

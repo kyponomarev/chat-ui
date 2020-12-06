@@ -43,7 +43,6 @@ export class Route {
     if (!this._block) {
       this._block = new this._blockClass();
       render(this._props.rootQuery, this._block);
-      // TODO remove ts-ignore
       // @ts-ignore
       this._blockClass.hydrate();
       return;

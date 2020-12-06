@@ -222,7 +222,6 @@ export abstract class Block {
     return !Object.is(oldProps, newProps);
   }
 
-
   get element(): Element {
     return this._element;
   }

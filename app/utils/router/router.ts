@@ -40,7 +40,7 @@ export class Router {
   start() {
     window.onpopstate = ((event: PopStateEvent) => {
       event.stopPropagation();
-      const {location} = (event.currentTarget as any); // TODO replace any
+      const {location} = (event.currentTarget as any);
       this._onRoute(location.pathname);
     });
 
