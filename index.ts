@@ -1,3 +1,5 @@
 import {App} from './app/app';
 
-new App();
+(function start() {
+  return new App();
+}());

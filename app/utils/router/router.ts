@@ -1,100 +1,103 @@
-import {Route} from "../route/route";
-import {Block} from "../../modules/block";
+import {Route} from '../route/route';
+import {Block} from '../../modules/block';
 
 export interface Props {
-    [key: string]: unknown;
+  [key: string]: unknown;
 
-    rootQuery: string;
+  rootQuery: string;
 }
 
 export class Router {
-    private static __instance: Router;
+  private static __instance: Router;
 
-    private readonly _rootQuery: string;
+  private readonly _rootQuery: string;
 
-    private _currentRoute: Route | null;
+  private _currentRoute: Route | null;
 
-    routes: Route[];
-    history: History;
+  routes: Route[];
 
-    constructor(rootQuery: string) {
-        if (Router.__instance) {
-            return Router.__instance;
-        }
+  history: History;
 
-        this.routes = [];
-        this.history = window.history;
-        this._currentRoute = null;
-        this._rootQuery = rootQuery;
-
-        Router.__instance = this;
+  constructor(rootQuery: string) {
+    if (Router.__instance) {
+      return Router.__instance;
     }
 
-    use(pathname: string, block: { new(...args: any[]): Block; }, isNotFound?: boolean) {
-        const route = new Route(pathname, block, {rootQuery: this._rootQuery}, isNotFound);
-        this.routes.push(route);
-        return this;
+    this.routes = [];
+    this.history = window.history;
+    this._currentRoute = null;
+    this._rootQuery = rootQuery;
+
+    Router.__instance = this;
+  }
+
+  use(pathname: string, block: { new(...args: any[]): Block; }, isNotFound?: boolean) {
+    const route = new Route(pathname, block, {rootQuery: this._rootQuery}, isNotFound);
+    this.routes.push(route);
+    return this;
+  }
+
+  start() {
+    window.onpopstate = ((event: PopStateEvent) => {
+      event.stopPropagation();
+      const {location} = (event.currentTarget as any); // TODO replace any
+      this._onRoute(location.pathname);
+    });
+
+    this._onRoute(window.location.pathname);
+  }
+
+  _onRoute(pathname: string) {
+    let route = this.getRoute(pathname);
+
+    if (!route) {
+      route = this.getNotFoundRoute();
     }
 
-    start() {
-        window.onpopstate = ((event: PopStateEvent) => {
-            event.stopPropagation();
-            const {location} = (event.currentTarget as any); // TODO replace any
-            this._onRoute(location.pathname);
-        }).bind(this);
-
-        this._onRoute(window.location.pathname);
+    if (!route) {
+      return;
     }
 
-    _onRoute(pathname: string) {
-        let route = this.getRoute(pathname);
-
-        if (!route) {
-            route = this.getNotFoundRoute();
-        }
-
-        if (!route) {
-            return;
-        }
-
-        if (this._currentRoute) {
-            this._currentRoute.leave();
-        }
-
-        this._currentRoute = route;
-        route.render();
+    if (this._currentRoute) {
+      this._currentRoute.leave();
     }
 
-    go(pathname: string) {
-        this.history.pushState({}, '', pathname);
-        this._onRoute(pathname);
+    this._currentRoute = route;
+    route.render();
+  }
+
+  go(pathname: string) {
+    this.history.pushState({}, '', pathname);
+    this._onRoute(pathname);
+  }
+
+  back() {
+    this.history.back();
+  }
+
+  forward() {
+    this.history.forward();
+  }
+
+  getParamValue(key: string): string | undefined {
+    if (!this._currentRoute) {
+      return undefined;
     }
 
-    back() {
-        this.history.back();
+    const pattern = new RegExp(this._currentRoute.pathname.replace(`:${key}`, '(\\w+)'));
+    const match = window.location.href.match(pattern);
+    if (match) {
+      return match[1];
     }
 
-    forward() {
-        this.history.forward();
-    }
+    return undefined;
+  }
 
-    getParamValue(key: string): string | undefined {
-        if (!this._currentRoute) {
-            return;
-        }
+  getRoute(pathname: string): Route | undefined {
+    return this.routes.find((route) => route.match(pathname));
+  }
 
-        const pattern = new RegExp(this._currentRoute.pathname.replace(':' + key, '(\\w+)'));
-        const match = window.location.href.match(pattern);
-        if (match) {
-            return match[1];
-        }
-    }
-
-    getRoute(pathname: string): Route | undefined {
-        return this.routes.find(route => route.match(pathname));
-    }
-
-    getNotFoundRoute(): Route | undefined {
-        return this.routes.find(route => route.isNotFound);
-    }
+  getNotFoundRoute(): Route | undefined {
+    return this.routes.find((route) => route.isNotFound);
+  }
 }

@@ -1,45 +1,43 @@
 type Callback = <T>(...args: T[]) => void;
 
 export interface Listener {
-    [key: string]: Callback[];
+  [key: string]: Callback[];
 }
 
 export default class EventBus {
+  private listeners: Listener;
 
-    private listeners: Listener;
+  constructor() {
+    this.listeners = {};
+  }
 
-    constructor() {
-        this.listeners = {};
+  private _checkEventExist(event: string) {
+    if (!this.listeners[event]) {
+      throw new Error(`Event ${event} not found`);
+    }
+  }
+
+  on(event: string, callback: Callback) {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
     }
 
-    private _checkEventExist(event: string) {
-        if (!this.listeners[event]) {
-            throw new Error(`Event ${event} not found`);
-        }
-    }
+    this.listeners[event].push(callback);
+  }
 
-    on(event: string, callback: Callback) {
-        if (!this.listeners[event]) {
-            this.listeners[event] = [];
-        }
+  off(event: string, callback: Callback) {
+    this._checkEventExist(event);
 
-        this.listeners[event].push(callback);
-    }
+    this.listeners[event] = this.listeners[event].filter(
+      (listener) => listener !== callback,
+    );
+  }
 
+  emit<T>(event: string, ...args: T[]) {
+    this._checkEventExist(event);
 
-    off(event: string, callback: Callback) {
-        this._checkEventExist(event);
-
-        this.listeners[event] = this.listeners[event].filter(
-            listener => listener !== callback
-        );
-    }
-
-    emit<T>(event: string, ...args: T[]) {
-        this._checkEventExist(event);
-
-        this.listeners[event].forEach(function (cb: Callback) {
-            cb(...args);
-        });
-    }
+    this.listeners[event].forEach((cb: Callback) => {
+      cb(...args);
+    });
+  }
 }

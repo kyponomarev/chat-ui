@@ -1,5 +1,7 @@
-export const environment = {
-    apiUrl: 'https://ya-praktikum.tech/api/v2',
-    uploadsUrl: 'https://ya-praktikum.tech',
-    avatarPlaceholderUrl: '/assets/images//placeholders/user.png'
+const environment = {
+  apiUrl: 'https://ya-praktikum.tech/api/v2',
+  uploadsUrl: 'https://ya-praktikum.tech',
+  avatarPlaceholderUrl: '/assets/images//placeholders/user.png',
 };
+
+export default environment;

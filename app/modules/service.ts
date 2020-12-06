@@ -1,12 +1,9 @@
-import EventBus from "../utils/event-bus/event-bus";
+import EventBus from '../utils/event-bus/event-bus';
 
-export abstract class Service {
-    protected _eventBus: EventBus;
+export default abstract class Service {
+  protected _eventBus: EventBus;
 
-    protected constructor(eventBus: EventBus) {
-        this._eventBus = eventBus;
-    }
-
-    abstract attachEvents(): void;
+  protected constructor(eventBus: EventBus) {
+    this._eventBus = eventBus;
+  }
 }
-

@@ -1,34 +1,38 @@
-import "./toast.component.css";
+import './toast.component.css';
 import * as template from './toast.component.handlebars';
 
 import {Block, Props} from '../../modules/block';
 
-export type toastTypes = 'danger' | 'success';
+export type ToastTypes = 'danger' | 'success';
 
 export default class ToastComponent extends Block {
-    private readonly _messageElementSelector = '.toast__message';
-    private readonly _toastElementSelector = '.toast';
-    private readonly _toastModifierClassPrefix = 'toast';
+  private readonly _messageElementSelector = '.toast__message';
 
-    constructor(props: Props) {
-        super('div', props);
-        this.hide();
-    }
+  private readonly _toastElementSelector = '.toast';
 
-    render(): string {
-        return template(this._props);
-    }
+  private readonly _toastModifierClassPrefix = 'toast';
 
-    showToast(message: string, type: toastTypes = 'danger') {
-        this.getInternalElement(this._toastElementSelector).classList.add(this._toastModifierClassPrefix + '_' + type);
-        this.getInternalElement(this._messageElementSelector).textContent = message;
-        this.show();
-    }
+  constructor(props: Props) {
+    super('div', props);
+    this.hide();
+  }
 
-    hideToast() {
-        this.getInternalElement(this._toastElementSelector).classList.remove(this._toastModifierClassPrefix + '_danger', this._toastModifierClassPrefix + '_success');
-        this.getInternalElement(this._messageElementSelector).textContent = '';
-        this.hide();
-    }
+  render(): string {
+    return template(this._props);
+  }
 
+  showToast(message: string, type: ToastTypes = 'danger') {
+    this.getInternalElement(this._toastElementSelector).classList.add(`${this._toastModifierClassPrefix}_${type}`);
+    this.getInternalElement(this._messageElementSelector).textContent = message;
+    this.show();
+  }
+
+  hideToast() {
+    this.getInternalElement(this._toastElementSelector)
+      .classList
+      .remove(`${this._toastModifierClassPrefix}_danger`, `${this._toastModifierClassPrefix}_success`);
+
+    this.getInternalElement(this._messageElementSelector).textContent = '';
+    this.hide();
+  }
 }
