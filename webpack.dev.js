@@ -3,7 +3,7 @@ const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
-    mode: 'production',
+    mode: 'development',
     devServer: {
         port: 3002,
         historyApiFallback: {

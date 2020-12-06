@@ -22,8 +22,6 @@
   },
   "homepage": "https://github.com/kyponomarev/mf.messenger.praktikum.yandex#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "handlebars": "^4.7.6",
     "ts": "^0.2.2"
   },
   "devDependencies": {
@@ -37,6 +35,8 @@
     "cors": "^2.8.5",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
     "handlebars-loader": "^1.7.1",
     "html-webpack-plugin": "^4.5.0",
     "import-glob-loader": "^1.1.0",
