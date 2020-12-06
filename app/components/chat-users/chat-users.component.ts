@@ -3,9 +3,9 @@ import * as template from './chat-users.component.handlebars';
 
 import {Block, Props} from '../../modules/block';
 import {User} from '../../models/user';
-import {App} from '../../app';
 import environment from '../../environment';
 import ChatsService from '../../services/chats/chats.service';
+import {App} from '../../app';
 
 export interface ChatUsersProps extends Props {
   chatId: number;

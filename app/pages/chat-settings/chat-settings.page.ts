@@ -14,7 +14,7 @@ export default class ChatSettingsPage extends Block {
   constructor(props: ChatSettingsPageProps = {
     class: 'container container_full-height container_full-width',
     attributes: {},
-    handlers: { keyupHandler: (event) => ChatSettingsPage._onSearchKeyup(event) },
+    handlers: { keyupHandler: (event) => this._onSearchKeyup(event) },
     backLink: { text: 'Назад', url: '/home' },
   }) {
     const chatId = Number(App.router.getParamValue('id'));
@@ -41,7 +41,7 @@ export default class ChatSettingsPage extends Block {
     return template(this._props);
   }
 
-  private static _onSearchKeyup(evt: Event) {
+  private _onSearchKeyup(evt: Event) {
     const target = evt.target as HTMLInputElement;
     if (target) {
       App.eventBus.emit(UsersService.events.USERS_SEARCH, target.value);

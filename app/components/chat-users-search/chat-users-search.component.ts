@@ -3,10 +3,10 @@ import * as template from './chat-users-search.component.handlebars';
 
 import {Block, Props} from '../../modules/block';
 import {User} from '../../models/user';
-import {App} from '../../app';
 import environment from '../../environment';
 import ChatsService from '../../services/chats/chats.service';
 import UsersService from '../../services/users/users.service';
+import {App} from "../../app";
 
 export interface ChatUsersSearchProps extends Props {
   chatId: number;

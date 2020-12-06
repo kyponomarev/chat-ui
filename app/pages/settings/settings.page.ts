@@ -20,6 +20,103 @@ export interface SettingsPageProps extends Props {
   logoutButton?: ButtonComponent
 }
 
+const ProfileFormFieldsCreator = (user: User) => {
+  const profileFormFields: FormField[] = [
+    {
+      labelText: 'Имя',
+      pattern: /^.{1,}$/,
+      invalidMessage: 'Поле должно быть заполнено',
+      defaultValue: user.first_name,
+      type: 'text',
+      name: 'first_name',
+    },
+    {
+      labelText: 'Фамилия',
+      pattern: /^.{1,}$/,
+      invalidMessage: 'Поле должно быть заполнено',
+      defaultValue: user.second_name,
+      type: 'text',
+      name: 'second_name',
+    },
+    {
+      labelText: 'Логин',
+      pattern: /^.{3,}$/,
+      invalidMessage: 'Длина данного поля должна быть > 3 символов',
+      defaultValue: user.login,
+      type: 'text',
+      name: 'login',
+    },
+    {
+      labelText: 'Никнейм',
+      pattern: /^.{3,}$/,
+      invalidMessage: 'Длина данного поля должна быть > 3 символов',
+      defaultValue: user.display_name,
+      type: 'text',
+      name: 'display_name',
+    },
+    {
+      labelText: 'Почта',
+      // eslint-disable-next-line no-useless-escape,max-len
+      pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      invalidMessage: 'Неверный формат',
+      defaultValue: user.email,
+      type: 'email',
+      name: 'email',
+    },
+    {
+      labelText: 'Телефон',
+      pattern: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
+      invalidMessage: 'Неверный формат. Пример: 1234567899',
+      defaultValue: user.phone,
+      type: 'tel',
+      name: 'phone',
+    },
+  ];
+  return profileFormFields;
+};
+const ProfileFormFields = ProfileFormFieldsCreator({
+  first_name: '',
+  second_name: '',
+  login: '',
+  phone: '',
+  password: '',
+  email: '',
+  display_name: '',
+} as User);
+const ProfileForm = new FormComponent({
+  class: 'form_no-padding_top',
+  attributes: {method: 'POST', action: '/sign-in.html'},
+  handlers: {},
+  submitButtonText: 'Сохранить',
+  fields: ProfileFormFields,
+});
+
+const PasswordFormFields = [
+  {
+    labelText: 'Старый пароль',
+    pattern: /^.{6,}$/,
+    invalidMessage: 'Длина данного поля должна быть > 6 символов',
+    defaultValue: '',
+    type: 'password',
+    name: 'oldPassword',
+  },
+  {
+    labelText: 'Новый пароль',
+    pattern: /^.{6,}$/,
+    invalidMessage: 'Длина данного поля должна быть > 6 символов',
+    defaultValue: '',
+    type: 'password',
+    name: 'newPassword',
+  },
+];
+const PasswordForm = new FormComponent({
+  class: 'form_no-padding_top',
+  attributes: {method: 'POST', action: ''},
+  handlers: {},
+  submitButtonText: 'Изменить',
+  fields: PasswordFormFields,
+});
+
 export default class SettingsPage extends Block {
   private readonly _profileFormFieldsCreator: (user: User) => FormField[];
 
@@ -29,152 +126,57 @@ export default class SettingsPage extends Block {
     class: 'container container_full-height container_full-width',
     attributes: {},
     handlers: {
-      avatarChangeHandler: (event: Event) => SettingsPage._onAvatarFileChange(event),
+      avatarChangeHandler: (event: Event) => this._onAvatarFileChange(event),
     },
     backLink: {text: 'Назад', url: '/home'},
     userAvatar: environment.avatarPlaceholderUrl,
   }) {
-    const profileFormFieldsCreator = (user: User) => {
-      const profileFormFields: FormField[] = [
-        {
-          labelText: 'Имя',
-          pattern: /^.{1,}$/,
-          invalidMessage: 'Поле должно быть заполнено',
-          defaultValue: user.first_name,
-          type: 'text',
-          name: 'first_name',
-        },
-        {
-          labelText: 'Фамилия',
-          pattern: /^.{1,}$/,
-          invalidMessage: 'Поле должно быть заполнено',
-          defaultValue: user.second_name,
-          type: 'text',
-          name: 'second_name',
-        },
-        {
-          labelText: 'Логин',
-          pattern: /^.{3,}$/,
-          invalidMessage: 'Длина данного поля должна быть > 3 символов',
-          defaultValue: user.login,
-          type: 'text',
-          name: 'login',
-        },
-        {
-          labelText: 'Никнейм',
-          pattern: /^.{3,}$/,
-          invalidMessage: 'Длина данного поля должна быть > 3 символов',
-          defaultValue: user.display_name,
-          type: 'text',
-          name: 'display_name',
-        },
-        {
-          labelText: 'Почта',
-          // eslint-disable-next-line no-useless-escape,max-len
-          pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          invalidMessage: 'Неверный формат',
-          defaultValue: user.email,
-          type: 'email',
-          name: 'email',
-        },
-        {
-          labelText: 'Телефон',
-          pattern: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
-          invalidMessage: 'Неверный формат. Пример: 1234567899',
-          defaultValue: user.phone,
-          type: 'tel',
-          name: 'phone',
-        },
-      ];
-      return profileFormFields;
-    };
-    const profileFormFields = profileFormFieldsCreator({
-      first_name: '',
-      second_name: '',
-      login: '',
-      phone: '',
-      password: '',
-      email: '',
-      display_name: '',
-    } as User);
-    const profileForm = new FormComponent({
-      class: 'form_no-padding_top',
-      attributes: {method: 'POST', action: '/sign-in.html'},
-      handlers: {},
-      submitButtonText: 'Сохранить',
-      fields: profileFormFields,
-    });
-
-    const passwordFormFields = [
-      {
-        labelText: 'Старый пароль',
-        pattern: /^.{6,}$/,
-        invalidMessage: 'Длина данного поля должна быть > 6 символов',
-        defaultValue: '',
-        type: 'password',
-        name: 'oldPassword',
-      },
-      {
-        labelText: 'Новый пароль',
-        pattern: /^.{6,}$/,
-        invalidMessage: 'Длина данного поля должна быть > 6 символов',
-        defaultValue: '',
-        type: 'password',
-        name: 'newPassword',
-      },
-    ];
-    const passwordForm = new FormComponent({
-      class: 'form_no-padding_top',
-      attributes: {method: 'POST', action: ''},
-      handlers: {},
-      submitButtonText: 'Изменить',
-      fields: passwordFormFields,
-    });
-
     const logoutButton = new ButtonComponent(
       {
         text: 'Выход',
         class: 'button_full-width button_primary',
         attributes: {},
         handlers: {
-          onClickHandler: () => SettingsPage._onLogoutButtonClick(),
+          onClickHandler: () => this._onLogoutButtonClick(),
         },
       },
     );
+
     super('div', {
       ...props,
-      profileForm: profileForm.renderToString(),
-      passwordForm: passwordForm.renderToString(),
+      profileForm: ProfileForm.renderToString(),
+      passwordForm: PasswordForm.renderToString(),
       logoutButton: logoutButton.renderToString(),
     });
 
-    passwordForm.onSubmit = SettingsPage._onPasswordFormSubmit.bind(this);
-    profileForm.onSubmit = SettingsPage._onProfileFormSubmit.bind(this);
+    PasswordForm.onSubmit = this._onPasswordFormSubmit.bind(this);
+    ProfileForm.onSubmit = this._onProfileFormSubmit.bind(this);
 
-    this._profileFormFieldsCreator = profileFormFieldsCreator;
-    this._profileForm = profileForm;
+    this._profileFormFieldsCreator = ProfileFormFieldsCreator;
+    this._profileForm = ProfileForm;
 
-    App.eventBus.on(AuthService.events.AUTH_LOGGED_OUT, SettingsPage._onLoggedOut.bind(this));
-    App.eventBus.on(UsersService.events.USERS_PROFILE_CHANGE_FAILURE, SettingsPage._onError.bind(this));
-    App.eventBus.on(UsersService.events.USERS_PASSWORD_CHANGE_FAILURE, SettingsPage._onError.bind(this));
+    App.eventBus.on(AuthService.events.AUTH_LOGGED_OUT, this._onLoggedOut.bind(this));
+    App.eventBus.on(UsersService.events.USERS_PROFILE_CHANGE_FAILURE, this._onError.bind(this));
+    App.eventBus.on(UsersService.events.USERS_PASSWORD_CHANGE_FAILURE, this._onError.bind(this));
     App.eventBus.on(AuthService.events.AUTH_PROFILE_LOADED, this._onProfileLoad.bind(this));
-    App.eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGED, SettingsPage._onAvatarChange.bind(this));
-    App.eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, SettingsPage._onError.bind(this));
+    App.eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGED, this._onAvatarChange.bind(this));
+    App.eventBus.on(UsersService.events.USERS_PROFILE_AVATAR_CHANGE_FAILURE, this._onError.bind(this));
     App.eventBus.on(UsersService.events.USERS_PASSWORD_CHANGED, () => {
-      SettingsPage._onSuccess('Вы успешно изменили пароль');
+      this._onSuccess('Вы успешно изменили пароль');
     });
     App.eventBus.on(UsersService.events.USERS_PROFILE_CHANGED, () => {
-      SettingsPage._onSuccess('Вы успешно изменили профиль');
+      this._onSuccess('Вы успешно изменили профиль');
     });
 
     App.eventBus.emit(AuthService.events.AUTH_PROFILE_LOAD);
   }
 
-  private static _onLogoutButtonClick() {
+  private _onLogoutButtonClick() {
     App.eventBus.emit(AuthService.events.AUTH_LOGOUT);
   }
 
-  private static _onLoggedOut() {
+  // eslint-disable-next-line class-methods-use-this
+  private _onLoggedOut() {
     App.router.go('/sign-in');
   }
 
@@ -189,23 +191,23 @@ export default class SettingsPage extends Block {
     this._profileForm.setFields(fields);
   }
 
-  private static _onPasswordFormSubmit(formData: FormData) {
+  private _onPasswordFormSubmit(formData: FormData) {
     App.eventBus.emit(UsersService.events.USERS_PASSWORD_CHANGE, formData);
   }
 
-  private static _onProfileFormSubmit(formData: FormData) {
+  private _onProfileFormSubmit(formData: FormData) {
     App.eventBus.emit(UsersService.events.USERS_PROFILE_CHANGE, formData);
   }
 
-  private static _onError(error: string) {
+  private _onError(error: string) {
     App.eventBus.emit(ToastService.events.TOAST_SHOW, `Ошибка: ${error}`);
   }
 
-  private static _onSuccess(message: string) {
+  private _onSuccess(message: string) {
     App.eventBus.emit(ToastService.events.TOAST_SHOW, message, 'success');
   }
 
-  private static _onAvatarFileChange(event: Event) {
+  private _onAvatarFileChange(event: Event) {
     const target: HTMLInputElement = <HTMLInputElement>event.target;
 
     if (target && target.files && target.files.length > 0) {
@@ -215,8 +217,8 @@ export default class SettingsPage extends Block {
     }
   }
 
-  private static _onAvatarChange() {
+  private _onAvatarChange() {
     App.eventBus.emit(AuthService.events.AUTH_PROFILE_LOAD);
-    SettingsPage._onSuccess('Вы успешно изменили аватарку');
+    this._onSuccess('Вы успешно изменили аватарку');
   }
 }

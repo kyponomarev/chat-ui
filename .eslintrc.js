@@ -12,7 +12,8 @@ module.exports = {
     "object-curly-spacing": 'off',
     "max-len": [1, 150],
     'import/no-cycle': 'off',
-    'no-alert': 'off'
+    'no-alert': 'off',
+    'class-methods-use-this': 'off'
   },
   ignorePatterns: ['.eslintrc.js']
 };

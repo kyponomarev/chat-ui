@@ -8,14 +8,12 @@ export interface Handlers {
   [key: string]: (...args: any) => void;
 }
 
-export interface PropBasis {
-  [key: string]: unknown;
-}
-
-export interface Props extends PropBasis {
+export interface Props {
   class: string;
   handlers: Handlers;
   attributes?: Attributes;
+
+  [key: string]: unknown;
 }
 
 export interface Meta {
@@ -223,6 +221,7 @@ export abstract class Block {
   componentDidUpdate(oldProps: Props, newProps: Props) {
     return !Object.is(oldProps, newProps);
   }
+
 
   get element(): Element {
     return this._element;

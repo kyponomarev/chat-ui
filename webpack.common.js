@@ -50,7 +50,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
+      filename: '[name].[contenthash].css',
     }),
     new webpack.ProvidePlugin({
       Handlebars: 'handlebars',

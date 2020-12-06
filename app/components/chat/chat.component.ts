@@ -3,10 +3,10 @@ import * as template from './chat.component.handlebars';
 
 import {Block, Props} from '../../modules/block';
 import SESSIONS from './mock';
-import {App} from '../../app';
 import {Chat} from '../../models/chat';
 import ToastService from '../../services/toast/toast.service';
 import ChatsService from '../../services/chats/chats.service';
+import {App} from '../../app';
 
 export interface Message {
   id: string;
@@ -44,7 +44,7 @@ export default class ChatComponent extends Block {
 
     this._chatId = props.id;
     App.eventBus.on(ChatsService.events.CHATS_LOADED_BY_ID, this._onChatLoad.bind(this));
-    App.eventBus.on(ChatsService.events.CHATS_LOAD_BY_ID_FAILURE, ChatComponent._onChatLoadError.bind(this));
+    App.eventBus.on(ChatsService.events.CHATS_LOAD_BY_ID_FAILURE, this._onChatLoadError.bind(this));
     App.eventBus.emit(ChatsService.events.CHATS_LOAD_BY_ID, this._chatId);
   }
 
@@ -56,7 +56,7 @@ export default class ChatComponent extends Block {
     this.setProps({...chat});
   }
 
-  private static _onChatLoadError(error: string) {
+  private _onChatLoadError(error: string) {
     App.eventBus.emit(ToastService.events.TOAST_SHOW, error);
   }
 }

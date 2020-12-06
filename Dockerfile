@@ -1,7 +1,7 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN HUSKY_SKIP_INSTALL=true npm install --unsafe-perm
 COPY . .
 RUN npm run build:prod
 
